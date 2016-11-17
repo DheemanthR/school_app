@@ -99,21 +99,12 @@ Public Class Form0
 
                     End If
 
-                    'If Integer.Parse(lblTotalFeeReceived.Text) > 0 Then
-                    '    Sql = "INSERT INTO `prajwal_school_app`.`fee_details` (`SUPPLY`, `FEES`, `REGN`) " &
-                    '               "VALUES "
-                    '    Sql += " ('" & listSupplies.Items(0).SubItems(0).Text & "', '" & listSupplies.Items(0).SubItems(1).Text & "', '" & txtStudentID.Text & "') "
-
-                    '    For i As Integer = 1 To listSupplies.Items.Count - 1
-                    '        Sql += ", ('" & listSupplies.Items(0).SubItems(0).Text & "', '" & listSupplies.Items(0).SubItems(1).Text & "', '" & txtStudentID.Text & "') "
-                    '    Next
-
-                    '    cmd = New MySqlCommand(Sql, conn)
-                    '    resultSupplies = cmd.ExecuteNonQuery
-                    'End If
 
                     If resultMain = 1 AndAlso (resultSupplies > 0 Or noSupplies = True) Then
                         MsgBox("Student Data Saved Successfully! " & vbCrLf & vbCrLf & "REGN = " + REGN.ToString)
+                        btnPrevPay.Enabled = True
+                        btnFeeDetails.Enabled = True
+
                         Reset_Form()
                     Else
                         MsgBox("Student Not Saved. An Error occured!")

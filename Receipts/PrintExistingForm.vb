@@ -100,13 +100,17 @@ Public Class Print_Existing_Form
     End Sub
 
     Private Sub ListView1_DoubleClick(sender As Object, e As EventArgs) Handles ListView1.DoubleClick
+        Dim REGN As String
         Dim frm As New NewReceipt
         frm.GroupBox1.Enabled = False
         frm.GroupBox2.Enabled = False
+        frm.ClassesTableAdapter.Fill(frm.Prajwal_school_appDataSet.classes)
         dr = ds.Select("ID = '" & ListView1.SelectedItems.Item(0).Text & "'")
         If dr.Length > 0 Then
-            frm.txtREGN.Text = dr(0)("STUD_ID").ToString
-            frm.populateStudentDetails(dr(0)("STUD_ID").ToString)
+            REGN = dr(0)("STUD_ID").ToString
+            frm.txtREGN.Text = REGN
+            frm.populateStudentDetails(REGN)
+            frm.generateBill(REGN)
             frm.Show()
         End If
         Me.Close()

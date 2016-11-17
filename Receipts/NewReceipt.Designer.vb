@@ -34,7 +34,10 @@ Partial Class NewReceipt
         Me.txtLName = New System.Windows.Forms.TextBox()
         Me.txtSection = New System.Windows.Forms.TextBox()
         Me.cmbClass = New System.Windows.Forms.ComboBox()
+        Me.ClassesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.Prajwal_school_appDataSet = New Receipts.prajwal_school_appDataSet()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtAmount = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtBalance = New System.Windows.Forms.TextBox()
@@ -48,15 +51,14 @@ Partial Class NewReceipt
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.ViewPDF = New AxAcroPDFLib.AxAcroPDF()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.Prajwal_school_appDataSet = New Receipts.prajwal_school_appDataSet()
-        Me.ClassesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.stsLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ClassesTableAdapter = New Receipts.prajwal_school_appDataSetTableAdapters.classesTableAdapter()
-        Me.btnSearch = New System.Windows.Forms.Button()
+        CType(Me.ClassesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.ViewPDF, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ClassesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -153,6 +155,16 @@ Partial Class NewReceipt
         Me.cmbClass.TabIndex = 9
         Me.cmbClass.ValueMember = "CLASS"
         '
+        'ClassesBindingSource
+        '
+        Me.ClassesBindingSource.DataMember = "classes"
+        Me.ClassesBindingSource.DataSource = Me.Prajwal_school_appDataSet
+        '
+        'Prajwal_school_appDataSet
+        '
+        Me.Prajwal_school_appDataSet.DataSetName = "prajwal_school_appDataSet"
+        Me.Prajwal_school_appDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.btnSearch)
@@ -174,6 +186,15 @@ Partial Class NewReceipt
         Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Student Details"
+        '
+        'btnSearch
+        '
+        Me.btnSearch.Location = New System.Drawing.Point(12, 84)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(147, 38)
+        Me.btnSearch.TabIndex = 10
+        Me.btnSearch.Text = "Search"
+        Me.btnSearch.UseVisualStyleBackColor = True
         '
         'txtAmount
         '
@@ -261,13 +282,14 @@ Partial Class NewReceipt
         '
         'Button2
         '
+        Me.Button2.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Button2.Location = New System.Drawing.Point(12, 416)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(240, 74)
         Me.Button2.TabIndex = 21
         Me.Button2.Text = "Manual Entry"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.UseVisualStyleBackColor = False
         '
         'GroupBox2
         '
@@ -296,7 +318,7 @@ Partial Class NewReceipt
         Me.ViewPDF.Location = New System.Drawing.Point(285, 158)
         Me.ViewPDF.Name = "ViewPDF"
         Me.ViewPDF.OcxState = CType(resources.GetObject("ViewPDF.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.ViewPDF.Size = New System.Drawing.Size(973, 642)
+        Me.ViewPDF.Size = New System.Drawing.Size(978, 642)
         Me.ViewPDF.TabIndex = 12
         '
         'StatusStrip1
@@ -307,28 +329,15 @@ Partial Class NewReceipt
         Me.StatusStrip1.TabIndex = 13
         Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'Prajwal_school_appDataSet
+        'stsLabel
         '
-        Me.Prajwal_school_appDataSet.DataSetName = "prajwal_school_appDataSet"
-        Me.Prajwal_school_appDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'ClassesBindingSource
-        '
-        Me.ClassesBindingSource.DataMember = "classes"
-        Me.ClassesBindingSource.DataSource = Me.Prajwal_school_appDataSet
+        Me.stsLabel.Name = "stsLabel"
+        Me.stsLabel.Size = New System.Drawing.Size(39, 17)
+        Me.stsLabel.Text = "Ready"
         '
         'ClassesTableAdapter
         '
         Me.ClassesTableAdapter.ClearBeforeFill = True
-        '
-        'btnSearch
-        '
-        Me.btnSearch.Location = New System.Drawing.Point(12, 84)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(147, 38)
-        Me.btnSearch.TabIndex = 10
-        Me.btnSearch.Text = "Search"
-        Me.btnSearch.UseVisualStyleBackColor = True
         '
         'NewReceipt
         '
@@ -342,13 +351,15 @@ Partial Class NewReceipt
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "NewReceipt"
         Me.Text = "New Receipt"
+        CType(Me.ClassesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.ViewPDF, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ClassesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -385,4 +396,5 @@ Partial Class NewReceipt
     Friend WithEvents ClassesBindingSource As BindingSource
     Friend WithEvents ClassesTableAdapter As prajwal_school_appDataSetTableAdapters.classesTableAdapter
     Friend WithEvents btnSearch As Button
+    Friend WithEvents stsLabel As ToolStripStatusLabel
 End Class

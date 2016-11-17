@@ -55,6 +55,8 @@ Partial Class Form0
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.cmbClass = New System.Windows.Forms.ComboBox()
+        Me.ClassesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.Prajwal_school_appDataSet = New StudentInfo.prajwal_school_appDataSet()
         Me.dtDOB = New System.Windows.Forms.DateTimePicker()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
@@ -69,14 +71,12 @@ Partial Class Form0
         Me.Item = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Price = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Prajwal_school_appDataSet = New StudentInfo.prajwal_school_appDataSet()
-        Me.ClassesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.ClassesTableAdapter = New StudentInfo.prajwal_school_appDataSetTableAdapters.classesTableAdapter()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ClassesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -104,7 +104,7 @@ Partial Class Form0
         'btnNewStudent
         '
         Me.btnNewStudent.Location = New System.Drawing.Point(16, 49)
-        Me.btnNewStudent.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnNewStudent.Margin = New System.Windows.Forms.Padding(4)
         Me.btnNewStudent.Name = "btnNewStudent"
         Me.btnNewStudent.Size = New System.Drawing.Size(215, 44)
         Me.btnNewStudent.TabIndex = 2
@@ -114,7 +114,7 @@ Partial Class Form0
         'txtStudentID
         '
         Me.txtStudentID.Location = New System.Drawing.Point(260, 133)
-        Me.txtStudentID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStudentID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStudentID.Name = "txtStudentID"
         Me.txtStudentID.Size = New System.Drawing.Size(312, 22)
         Me.txtStudentID.TabIndex = 3
@@ -142,7 +142,7 @@ Partial Class Form0
         'txtFirstName
         '
         Me.txtFirstName.Location = New System.Drawing.Point(260, 228)
-        Me.txtFirstName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtFirstName.Margin = New System.Windows.Forms.Padding(4)
         Me.txtFirstName.Name = "txtFirstName"
         Me.txtFirstName.Size = New System.Drawing.Size(312, 22)
         Me.txtFirstName.TabIndex = 6
@@ -150,7 +150,7 @@ Partial Class Form0
         'txtLastName
         '
         Me.txtLastName.Location = New System.Drawing.Point(260, 324)
-        Me.txtLastName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtLastName.Margin = New System.Windows.Forms.Padding(4)
         Me.txtLastName.Name = "txtLastName"
         Me.txtLastName.Size = New System.Drawing.Size(312, 22)
         Me.txtLastName.TabIndex = 7
@@ -198,7 +198,7 @@ Partial Class Form0
         'txtSection
         '
         Me.txtSection.Location = New System.Drawing.Point(664, 324)
-        Me.txtSection.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtSection.Margin = New System.Windows.Forms.Padding(4)
         Me.txtSection.Name = "txtSection"
         Me.txtSection.Size = New System.Drawing.Size(312, 22)
         Me.txtSection.TabIndex = 14
@@ -216,7 +216,7 @@ Partial Class Form0
         'txtAddress
         '
         Me.txtAddress.Location = New System.Drawing.Point(16, 402)
-        Me.txtAddress.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtAddress.Margin = New System.Windows.Forms.Padding(4)
         Me.txtAddress.Name = "txtAddress"
         Me.txtAddress.Size = New System.Drawing.Size(1493, 22)
         Me.txtAddress.TabIndex = 16
@@ -224,7 +224,7 @@ Partial Class Form0
         'btnCancel
         '
         Me.btnCancel.Location = New System.Drawing.Point(932, 668)
-        Me.btnCancel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnCancel.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(275, 58)
         Me.btnCancel.TabIndex = 18
@@ -234,7 +234,7 @@ Partial Class Form0
         'btnResetForm
         '
         Me.btnResetForm.Location = New System.Drawing.Point(16, 668)
-        Me.btnResetForm.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnResetForm.Margin = New System.Windows.Forms.Padding(4)
         Me.btnResetForm.Name = "btnResetForm"
         Me.btnResetForm.Size = New System.Drawing.Size(275, 58)
         Me.btnResetForm.TabIndex = 19
@@ -282,9 +282,9 @@ Partial Class Form0
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.Label9)
         Me.GroupBox1.Location = New System.Drawing.Point(1072, 106)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(421, 250)
         Me.GroupBox1.TabIndex = 26
         Me.GroupBox1.TabStop = False
@@ -292,8 +292,9 @@ Partial Class Form0
         '
         'btnPrevPay
         '
+        Me.btnPrevPay.Enabled = False
         Me.btnPrevPay.Location = New System.Drawing.Point(24, 190)
-        Me.btnPrevPay.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnPrevPay.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPrevPay.Name = "btnPrevPay"
         Me.btnPrevPay.Size = New System.Drawing.Size(372, 38)
         Me.btnPrevPay.TabIndex = 30
@@ -326,8 +327,9 @@ Partial Class Form0
         '
         'btnFeeDetails
         '
+        Me.btnFeeDetails.Enabled = False
         Me.btnFeeDetails.Location = New System.Drawing.Point(152, 32)
-        Me.btnFeeDetails.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnFeeDetails.Margin = New System.Windows.Forms.Padding(4)
         Me.btnFeeDetails.Name = "btnFeeDetails"
         Me.btnFeeDetails.Size = New System.Drawing.Size(247, 38)
         Me.btnFeeDetails.TabIndex = 27
@@ -359,7 +361,7 @@ Partial Class Form0
         'btnAdd
         '
         Me.btnAdd.Location = New System.Drawing.Point(1300, 458)
-        Me.btnAdd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnAdd.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(100, 28)
         Me.btnAdd.TabIndex = 29
@@ -369,7 +371,7 @@ Partial Class Form0
         'btnDelete
         '
         Me.btnDelete.Location = New System.Drawing.Point(1411, 458)
-        Me.btnDelete.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnDelete.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(100, 28)
         Me.btnDelete.TabIndex = 30
@@ -382,16 +384,26 @@ Partial Class Form0
         Me.cmbClass.DisplayMember = "CLASS"
         Me.cmbClass.FormattingEnabled = True
         Me.cmbClass.Location = New System.Drawing.Point(664, 228)
-        Me.cmbClass.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbClass.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbClass.Name = "cmbClass"
         Me.cmbClass.Size = New System.Drawing.Size(312, 24)
         Me.cmbClass.TabIndex = 31
         Me.cmbClass.ValueMember = "CLASS"
         '
+        'ClassesBindingSource
+        '
+        Me.ClassesBindingSource.DataMember = "classes"
+        Me.ClassesBindingSource.DataSource = Me.Prajwal_school_appDataSet
+        '
+        'Prajwal_school_appDataSet
+        '
+        Me.Prajwal_school_appDataSet.DataSetName = "prajwal_school_appDataSet"
+        Me.Prajwal_school_appDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'dtDOB
         '
         Me.dtDOB.Location = New System.Drawing.Point(664, 133)
-        Me.dtDOB.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtDOB.Margin = New System.Windows.Forms.Padding(4)
         Me.dtDOB.Name = "dtDOB"
         Me.dtDOB.Size = New System.Drawing.Size(312, 22)
         Me.dtDOB.TabIndex = 32
@@ -399,7 +411,7 @@ Partial Class Form0
         'btnSearch
         '
         Me.btnSearch.Location = New System.Drawing.Point(260, 49)
-        Me.btnSearch.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnSearch.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(215, 44)
         Me.btnSearch.TabIndex = 33
@@ -410,7 +422,7 @@ Partial Class Form0
         '
         Me.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnSave.Location = New System.Drawing.Point(1236, 668)
-        Me.btnSave.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnSave.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(275, 58)
         Me.btnSave.TabIndex = 17
@@ -508,7 +520,7 @@ Partial Class Form0
         Me.listSupplies.FullRowSelect = True
         Me.listSupplies.GridLines = True
         Me.listSupplies.Location = New System.Drawing.Point(16, 503)
-        Me.listSupplies.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.listSupplies.Margin = New System.Windows.Forms.Padding(4)
         Me.listSupplies.Name = "listSupplies"
         Me.listSupplies.Size = New System.Drawing.Size(1493, 157)
         Me.listSupplies.TabIndex = 42
@@ -531,22 +543,12 @@ Partial Class Form0
         Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Default
         Me.PictureBox1.InitialImage = CType(resources.GetObject("PictureBox1.InitialImage"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(16, 101)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(214, 254)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
-        '
-        'Prajwal_school_appDataSet
-        '
-        Me.Prajwal_school_appDataSet.DataSetName = "prajwal_school_appDataSet"
-        Me.Prajwal_school_appDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'ClassesBindingSource
-        '
-        Me.ClassesBindingSource.DataMember = "classes"
-        Me.ClassesBindingSource.DataSource = Me.Prajwal_school_appDataSet
         '
         'ClassesTableAdapter
         '
@@ -592,16 +594,16 @@ Partial Class Form0
         Me.Controls.Add(Me.MenuStrip1)
         Me.ForeColor = System.Drawing.SystemColors.WindowText
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Form0"
         Me.Text = "Student Information"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ClassesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

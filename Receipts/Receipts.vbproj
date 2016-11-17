@@ -13,6 +13,22 @@
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,36 +62,33 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>B2276F9C3A54D8CC1BA3084F699AF087BC8A9EDF</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Receipts_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CppMax.ReportMax.ReportMaxViewer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=f5bc7e05c67957ca, processorArchitecture=MSIL" />
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="itext.barcodes">
-      <HintPath>..\..\..\..\..\Downloads\iText7-dotnet-7.0.0\iText7-dotnet-7.0.0\itext.barcodes.dll</HintPath>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\..\..\..\Desktop\itextsharp-all-5.5.10\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="itext.font_asian">
-      <HintPath>..\..\..\..\..\Downloads\iText7-dotnet-7.0.0\iText7-dotnet-7.0.0\itext.font_asian.dll</HintPath>
+    <Reference Include="itextsharp.pdfa">
+      <HintPath>..\..\..\..\..\Desktop\itextsharp-all-5.5.10\itextsharp.pdfa.dll</HintPath>
     </Reference>
-    <Reference Include="itext.forms">
-      <HintPath>..\..\..\..\..\Downloads\iText7-dotnet-7.0.0\iText7-dotnet-7.0.0\itext.forms.dll</HintPath>
+    <Reference Include="itextsharp.xmlworker">
+      <HintPath>..\..\..\..\..\Desktop\itextsharp-all-5.5.10\itextsharp.xmlworker.dll</HintPath>
     </Reference>
-    <Reference Include="itext.hyph">
-      <HintPath>..\..\..\..\..\Downloads\iText7-dotnet-7.0.0\iText7-dotnet-7.0.0\itext.hyph.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.io">
-      <HintPath>..\..\..\..\..\Downloads\iText7-dotnet-7.0.0\iText7-dotnet-7.0.0\itext.io.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.kernel">
-      <HintPath>..\..\..\..\..\Downloads\iText7-dotnet-7.0.0\iText7-dotnet-7.0.0\itext.kernel.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.layout">
-      <HintPath>..\..\..\..\..\Downloads\iText7-dotnet-7.0.0\iText7-dotnet-7.0.0\itext.layout.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.pdfa">
-      <HintPath>..\..\..\..\..\Downloads\iText7-dotnet-7.0.0\iText7-dotnet-7.0.0\itext.pdfa.dll</HintPath>
-    </Reference>
-    <Reference Include="itext.sign">
-      <HintPath>..\..\..\..\..\Downloads\iText7-dotnet-7.0.0\iText7-dotnet-7.0.0\itext.sign.dll</HintPath>
+    <Reference Include="itextsharp.xtra">
+      <HintPath>..\..\..\..\..\Desktop\itextsharp-all-5.5.10\itextsharp.xtra.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
@@ -236,6 +249,7 @@
     <None Include="prajwal_school_appDataSet.xss">
       <DependentUpon>prajwal_school_appDataSet.xsd</DependentUpon>
     </None>
+    <None Include="Receipts_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -267,6 +281,21 @@
       <Project>{319cb699-be18-4c0b-8c1a-ef7acf6a8135}</Project>
       <Name>DBOperations</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Thums Education Center1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
