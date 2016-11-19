@@ -39,6 +39,21 @@ Public Class Print_Existing_Form
                 Sql += " AND DATE LIKE '" & dta & "%'"
             End If
 
+            If txtFirstName.TextLength > 0 Then
+                param = True
+                Sql += " AND STUD_ID IN (SELECT REGN FROM student WHERE FIRST_NAME LIKE '" & txtFirstName.Text & "') "
+            End If
+
+            If txtLastName.TextLength > 0 Then
+                param = True
+                Sql += " AND STUD_ID IN (SELECT REGN FROM student WHERE LAST_NAME LIKE " & txtLastName.Text & ") "
+            End If
+
+            If cmbClass.SelectedIndex > 0 Then
+                param = True
+                Sql += " AND STUD_ID IN (SELECT REGN FROM student WHERE CLASS = " & cmbClass.SelectedIndex & ") "
+            End If
+
             If param = False Then
                 MsgBox("Please enter at least one parameter to search")
             Else

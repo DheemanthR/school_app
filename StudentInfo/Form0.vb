@@ -524,31 +524,28 @@ Public Class Form0
         Try
             conn = db.connect()
             Dim Sql As String = "Select FIRST_NAME, LAST_NAME, DOB, SECTION, CLASS, ADDRESS from `prajwal_school_app`.`student` where REGN = '" & ID & "';"
-            cmd.CommandText = Sql
-            cmd.Connection = conn
-            dadapter.SelectCommand = cmd
-
-            datardr = cmd.ExecuteReader
-            If datardr.HasRows Then
-                datardr.Read()
-
-                txtFirstName.Text = datardr("FIRST_NAME")
-                txtAddress.Text = datardr("ADDRESS")
-                txtLastName.Text = datardr("LAST_NAME")
-                dtDOB.Text = datardr("DOB")
-                txtSection.Text = datardr("SECTION")
-                cmbClass.SelectedIndex = datardr("CLASS")
-                studFound = True
-            Else
+            Dim dt As New DataTable
+            cmd = New MySqlCommand(Sql, conn)
+            dadapter = New MySqlDataAdapter(cmd)
+            dadapter.Fill(dt)
+            If dt.Rows.Count = 0 Then
                 MsgBox("Student Data Not Found")
                 studFound = False
+            Else
+                txtFirstName.Text = dt.Rows(0).Item("FIRST_NAME")
+                txtAddress.Text = dt.Rows(0).Item("ADDRESS")
+                txtLastName.Text = dt.Rows(0).Item("LAST_NAME")
+                dtDOB.Text = dt.Rows(0).Item("DOB")
+                txtSection.Text = dt.Rows(0).Item("SECTION")
+                cmbClass.SelectedIndex = Integer.Parse(dt.Rows(0).Item("CLASS"))
+                studFound = True
             End If
-            datardr.Close()
 
             If studFound = True Then
+                conn = db.connect()
                 Sql = "Select * from `prajwal_school_app`.`fee_structure` where CLASS = '" & cmbClass.SelectedIndex - 1 & "';"
                 cmd.CommandText = Sql
-                'cmd.Connection = conn
+                cmd.Connection = conn
                 dadapter.SelectCommand = cmd
 
                 datardr = cmd.ExecuteReader
@@ -560,9 +557,10 @@ Public Class Form0
                 End If
                 datardr.Close()
 
+                conn = db.connect()
                 Sql = "Select SUM(FEES_RECV) from `prajwal_school_app`.`fee_details` where STUD_ID = '" & txtStudentID.Text & "';"
                 cmd.CommandText = Sql
-                'cmd.Connection = conn
+                cmd.Connection = conn
                 dadapter.SelectCommand = cmd
 
                 Try

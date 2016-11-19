@@ -25,3 +25,4 @@ C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\o
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\Debug\School_App.exe
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\Debug\School_App.xml
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\Debug\School_App.pdb
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\Debug\Resources\logo.jpg

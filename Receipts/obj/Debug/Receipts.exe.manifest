@@ -69,7 +69,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5wXYSptNfNdPXj7cAMSn9G7Hz2ViS7r8RFoO0+rmWQY=</dsig:DigestValue>
+        <dsig:DigestValue>gZDTULZE5lc+QspRHTj+jm95Nunkusi+Sx87rAjuwoo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -93,7 +93,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>cotcj2SNn53EbgMjoQ9j0SVljPsNP5RjGCHjqCO8g04=</dsig:DigestValue>
+        <dsig:DigestValue>5GXessfaMoivc47PIKLOf7y7odi/KX6IyxEjQ9WcKl8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -129,7 +129,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>7HClI1tUOX7eSY2f0efH7oCsmCNauKyjbpoGQuC3MPg=</dsig:DigestValue>
+        <dsig:DigestValue>EIHR25pL7zseDSQ3W6dv71F+FSYYjvtV5SqYlD+YZJY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -206,14 +206,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Receipts.exe" size="672248">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Receipts.exe" size="903672">
       <assemblyIdentity name="Receipts" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>6x/+ULB6MZg0wt8YBecnre1Zle443SF6Xdzu1BHZIm8=</dsig:DigestValue>
+        <dsig:DigestValue>RKiohLQkuHGbQBWDGsLN6jZCuAOfiiqZiJRuaHa5oQM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

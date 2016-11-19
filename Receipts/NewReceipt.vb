@@ -1,5 +1,6 @@
 ﻿Imports System.Drawing.Printing
 Imports System.IO
+Imports System.Reflection
 Imports iTextSharp.text.pdf
 Imports iTextSharp.text
 Imports MySql.Data.MySqlClient
@@ -8,11 +9,16 @@ Imports DocumentFormat.OpenXml.Drawing
 Public Class NewReceipt
 
     Public particulars As New DataTable
+    Dim ds As New DataTable
     Dim db As New DBOperations.Connection
     Dim conn As New MySqlConnection
     Dim cmd As New MySqlCommand
     Dim dadapter As New MySqlDataAdapter
     Dim datardr As MySqlDataReader
+
+    Dim _assembly As Assembly
+    Dim TheStream As System.IO.Stream
+    Dim _textStreamReader As StreamReader
 
     Dim NoPayment As Boolean = False
     Public manEntry As Boolean = False
@@ -26,11 +32,15 @@ Public Class NewReceipt
         Me.GroupBox2.Enabled = False
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Public Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         If form_valid() Then
 
             Try
+                If NoPayment = True AndAlso particulars.Rows.Count = 0 Then
+                    MsgBox("No entries to generate bill")
+                    Return
+                End If
                 conn = db.connect()
                 Dim result As Integer
                 Dim Sql As String = "INSERT INTO receipt_details (STUD_ID,AMOUNT,BALANCE) VALUES('" & txtREGN.Text & "', '" & txtAmount.Text & "','" & txtBalance.Text & "')"
@@ -61,7 +71,8 @@ Public Class NewReceipt
 
 
             Catch ex As Exception
-                MsgBox("An error occured while saving receipt details to database. Please try again")
+                stsLabel.Text = "An error occured while saving receipt details to database. Please try again"
+                MsgBox(ex.Message)
             Finally
                 db.disconnect(conn)
             End Try
@@ -115,25 +126,22 @@ Public Class NewReceipt
         Try
             conn = db.connect()
             Dim Sql As String = "Select FIRST_NAME, LAST_NAME, SECTION, CLASS from `prajwal_school_app`.`student` where REGN = '" & ID & "';"
-            cmd.CommandText = Sql
-            cmd.Connection = conn
-            dadapter.SelectCommand = cmd
-            datardr = cmd.ExecuteReader
-            If datardr.HasRows Then
-                datardr.Read()
+            cmd = New MySqlCommand(Sql, conn)
+            dadapter = New MySqlDataAdapter(cmd)
 
-                txtFName.Text = datardr("FIRST_NAME")
-
-                txtLName.Text = datardr("LAST_NAME")
-
-                txtSection.Text = datardr("SECTION")
-
-                cmbClass.SelectedIndex = datardr("CLASS")
-
+            ds = New DataTable
+            dadapter.Fill(ds)
+            If ds.Rows.Count = 0 Then
+                stsLabel.Text = "Student Data Not Found"
             Else
-                MsgBox("Student Data Not Found")
+                txtFName.Text = ds.Rows(0).Item("FIRST_NAME")
+
+                txtLName.Text = ds.Rows(0).Item("LAST_NAME")
+
+                txtSection.Text = ds.Rows(0).Item("SECTION")
+
+                cmbClass.SelectedIndex = Integer.Parse(ds.Rows(0).Item("CLASS").ToString)
             End If
-            datardr.Close()
 
             Sql = "Select * FROM fee_details where STUD_ID = '" & ID & "'AND BILL_GEN = 0 ORDER BY FEES_BAL ASC;"
             Dim amount As Integer
@@ -158,8 +166,8 @@ Public Class NewReceipt
                 NoPayment = True
                 MsgBox("No payments pending for this student")
             End If
-            stsLabel.Text = "Student and payment data loaded successfully"
-            GroupBox2.Enabled = True
+            Me.stsLabel.Text = "Student and payment data loaded successfully"
+            Me.GroupBox2.Enabled = True
         Catch ex As Exception
             MsgBox("Error loading Student Data")
         Finally
@@ -226,18 +234,33 @@ Public Class NewReceipt
 
         If thousands > 0 And flag2 = False Then
             aiw += return_words(thousands) + " Thousand "
-        ElseIf thousands = 0 Or flag2 = True Then
+        ElseIf thousands = 0 And flag2 = True Then
             aiw += "Thousand "
+            Else If thousands = 0 And flag2 = false
         End If
 
         If hundreds > 0 Then
-            aiw += "and " + return_words(hundreds) + " Hundred"
+            If thousands = 0 Then
+                aiw += return_words(hundreds) + " Hundred"
+            Else
+                aiw += "and " + return_words(hundreds) + " Hundred"
+            End If
+
         End If
 
         If tens > 1 Then
-            aiw += " and " + return_tens(tens) + " "
+            If thousands = 0 AndAlso hundreds = 0 Then
+                aiw += return_tens(tens) + " "
+            Else
+                aiw += " and " + return_tens(tens) + " "
+            End If
+
         ElseIf tens = 1 Then
-            aiw += " and " + return_tens_one(units)
+            If thousands = 0 AndAlso hundreds = 0 Then
+                aiw += return_tens_one(units)
+            Else
+                aiw += " and " + return_tens_one(units)
+            End If
             flag = True
         End If
 
@@ -344,11 +367,29 @@ Public Class NewReceipt
         Dim doc As New iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36)
         Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(doc, New FileStream("Receipt.pdf", FileMode.Create))
         doc.Open()
-        Dim image As System.Drawing.Image = System.Drawing.Image.FromHbitmap(My.Resources.Thums_Education_Center1.GetHbitmap())
-        Dim logo As iTextSharp.text.Image = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png)
-        logo.Alignment = Element.ALIGN_CENTER
-        logo.ScaleToFit(2300.0F, 125.0F)
-        doc.Add(logo)
+        Try
+            _assembly = Assembly.GetExecutingAssembly()
+
+            TheStream = _assembly.GetManifestResourceStream("Receipts.logo.jpg")
+
+            Dim image As New Bitmap(TheStream)
+            Dim logo As iTextSharp.text.Image = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Jpeg)
+            logo.Alignment = Element.ALIGN_CENTER
+            logo.ScaleToFit(2300.0F, 125.0F)
+            doc.Add(logo)
+        Catch ex As Exception
+            stsLabel.Text = "Failed to load logo"
+            Dim school_name As iTextSharp.text.Paragraph = New iTextSharp.text.Paragraph("THAM'S EDUCATION CENTER (R)")
+            school_name.Alignment = Element.ALIGN_CENTER
+            Dim school_reg As iTextSharp.text.Paragraph = New iTextSharp.text.Paragraph("(Recognized by Govt. Of Karnataka)")
+            school_reg.Alignment = Element.ALIGN_CENTER
+            Dim school_addr As iTextSharp.text.Paragraph = New iTextSharp.text.Paragraph("Byrenahalli, Madhugiri Road, Koratagere Taluk")
+            school_addr.Alignment = Element.ALIGN_CENTER
+            doc.Add(school_name)
+            doc.Add(school_reg)
+            doc.Add(school_addr)
+        End Try
+
         Dim line1 As New iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_CENTER, 1)
         doc.Add(space)
         doc.Add(New Chunk(line1))
@@ -388,8 +429,18 @@ Public Class NewReceipt
         Cell.HorizontalAlignment = 1
         Table.AddCell(Cell)
 
+        If Integer.TryParse(txtAmount.Text, totalAmt) Then
+
+        Else
+            txtAmount.Text = 0
+            txtBalance.Text = 0
+            totalAmt = 0
+            stsLabel.Text = "No pending payments for this student"
+        End If
+        totalAmt = Integer.Parse(txtAmount.Text)
+
         'Adding first row as fees by default
-        If Integer.Parse(txtAmount.Text) > 0 Then
+        If totalAmt > 0 Then
             Cell = New PdfPCell(New Phrase("1"))
             Cell.HorizontalAlignment = 1
             Table.AddCell(Cell)
@@ -399,19 +450,10 @@ Public Class NewReceipt
             Table.AddCell(Cell)
         End If
 
-        If Integer.TryParse(txtAmount.Text, totalAmt) Then
-
-        Else
-            txtAmount.Text = 0
-            totalAmt = 0
-            stsLabel.Text = "No pending payments for this student"
-        End If
-        totalAmt = Integer.Parse(txtAmount.Text)
-
         'Now adding other particulars
         If particulars.Rows.Count > 0 Then
             For Each row As DataRow In particulars.Rows
-                If Table.Rows.Count = 1 Then
+                If Table.Rows.Count > 1 Then
                     Cell = New PdfPCell(New Phrase((row.Item(0) + 1).ToString))
                 Else
                     Cell = New PdfPCell(New Phrase((row.Item(0)).ToString))

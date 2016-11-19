@@ -62,7 +62,12 @@ Public Class FeeDetailsvb
                     MsgBox("Fee Details Not Saved. An Error occured!")
                 Else
                     If MsgBox("Fee Details Saved Successfully! Would you like to print a receipt?", MsgBoxStyle.YesNo) = DialogResult.Yes Then
-                        Dim frm As New Receipts.PrintReceipts
+                        Dim frm As New Receipts.NewReceipt
+                        frm.txtREGN.Text = lblREGN.Text
+                        frm.ClassesTableAdapter.Fill(frm.Prajwal_school_appDataSet.classes)
+                        frm.populateStudentDetails(lblREGN.Text)
+                        'frm.GroupBox2.Enabled = True
+                        frm.Button1_Click(Nothing, Nothing)
                         frm.Show()
                         Me.Close()
 
