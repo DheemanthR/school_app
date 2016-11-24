@@ -1,0 +1,9 @@
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\bin\Release\DBOperations.dll
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\bin\Release\DBOperations.pdb
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\bin\Release\DBOperations.xml
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\bin\Release\MySql.Data.dll
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\obj\Release\DBOperations.Resources.resources
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\obj\Release\DBOperations.vbproj.GenerateResource.Cache
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\obj\Release\DBOperations.dll
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\obj\Release\DBOperations.xml
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\obj\Release\DBOperations.pdb

@@ -42,16 +42,16 @@ Partial Class About
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(177, 130)
+        Me.Label2.Location = New System.Drawing.Point(169, 130)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(74, 16)
+        Me.Label2.Size = New System.Drawing.Size(94, 16)
         Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Version 1.0"
+        Me.Label2.Text = "Version 1.2.1.0"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(178, 184)
+        Me.Label3.Location = New System.Drawing.Point(180, 187)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(77, 13)
         Me.Label3.TabIndex = 2
@@ -61,7 +61,7 @@ Partial Class About
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(155, 217)
+        Me.Label4.Location = New System.Drawing.Point(156, 217)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(120, 20)
         Me.Label4.TabIndex = 3

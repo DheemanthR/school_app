@@ -16,7 +16,7 @@ Public Class Print_Existing_Form
             ListView1.Items.Clear()
             conn = db.connect()
             Dim param As Boolean = False
-            Dim Sql As String = "Select ID, STUD_ID, AMOUNT, BALANCE, DATE From `prajwal_school_app`.`receipt_details` WHERE 1"
+            Dim Sql As String = "Select ID, STUD_ID, AMOUNT, BALANCE, DATE, SUPPLIES From `prajwal_school_app`.`receipt_details` WHERE 1"
             If txtReceiptNum.Text.Length > 0 Then
                 param = True
                 Sql += " AND ID = '" & txtReceiptNum.Text & "'"
@@ -117,17 +117,42 @@ Public Class Print_Existing_Form
     Private Sub ListView1_DoubleClick(sender As Object, e As EventArgs) Handles ListView1.DoubleClick
         Dim REGN As String
         Dim frm As New NewReceipt
+        Dim feesAmt As Integer = 0
+        Dim suppliesAmt As Integer = 0
         frm.GroupBox1.Enabled = False
         frm.GroupBox2.Enabled = False
         frm.ClassesTableAdapter.Fill(frm.Prajwal_school_appDataSet.classes)
         dr = ds.Select("ID = '" & ListView1.SelectedItems.Item(0).Text & "'")
         If dr.Length > 0 Then
             REGN = dr(0)("STUD_ID").ToString
+            feesAmt = Integer.Parse(dr(0)("AMOUNT").ToString)
             frm.txtREGN.Text = REGN
+            frm.dtReceipt.Value = dr(0)("DATE")
             frm.populateStudentDetails(REGN)
-            frm.generateBill(REGN)
+            If dr(0)("SUPPLIES") = 1 Then
+                Dim sql As String = "SELECT ID, PARTICULARS,AMOUNT FROM particulars WHERE RECEIPT_ID = '" & dr(0)("ID") & "'"
+                cmd = New MySqlCommand(sql, conn)
+                dadapter = New MySqlDataAdapter(cmd)
+                frm.particulars = New DataTable
+                dadapter.Fill(frm.particulars)
+            End If
+            Dim i As Integer = 1
+            For Each row As DataRow In frm.particulars.Rows
+                row.Item(0) = i
+                i += 1
+                suppliesAmt += row.Item(2)
+            Next
+            feesAmt -= suppliesAmt
+            frm.txtAmount.Text = feesAmt
+            If feesAmt > 0 Then
+                For Each row As DataRow In frm.particulars.Rows
+                    row.Item(0) += 1
+                Next
+            End If
+            frm.generateBill(dr(0)("ID"))
             frm.Show()
         End If
+
         Me.Close()
     End Sub
 End Class

@@ -49,10 +49,10 @@ Partial Class NewReceipt
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.ViewPDF = New AxAcroPDFLib.AxAcroPDF()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.stsLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ClassesTableAdapter = New Receipts.prajwal_school_appDataSetTableAdapters.classesTableAdapter()
+        Me.ViewPDF = New AxAcroPDFLib.AxAcroPDF()
         CType(Me.ClassesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -177,7 +177,7 @@ Partial Class NewReceipt
         'btnSearch
         '
         Me.btnSearch.Location = New System.Drawing.Point(9, 68)
-        Me.btnSearch.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnSearch.Margin = New System.Windows.Forms.Padding(2)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(110, 31)
         Me.btnSearch.TabIndex = 10
@@ -190,6 +190,7 @@ Partial Class NewReceipt
         Me.txtAmount.Name = "txtAmount"
         Me.txtAmount.Size = New System.Drawing.Size(180, 20)
         Me.txtAmount.TabIndex = 11
+        Me.txtAmount.Text = "0"
         '
         'Label6
         '
@@ -206,6 +207,7 @@ Partial Class NewReceipt
         Me.txtBalance.Name = "txtBalance"
         Me.txtBalance.Size = New System.Drawing.Size(180, 20)
         Me.txtBalance.TabIndex = 13
+        Me.txtBalance.Text = "0"
         '
         'Label7
         '
@@ -249,6 +251,7 @@ Partial Class NewReceipt
         Me.txtAIW.Name = "txtAIW"
         Me.txtAIW.Size = New System.Drawing.Size(180, 86)
         Me.txtAIW.TabIndex = 17
+        Me.txtAIW.Text = "Zero"
         '
         'Button1
         '
@@ -288,16 +291,6 @@ Partial Class NewReceipt
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Payment Details"
         '
-        'ViewPDF
-        '
-        Me.ViewPDF.Enabled = True
-        Me.ViewPDF.Location = New System.Drawing.Point(285, 158)
-        Me.ViewPDF.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.ViewPDF.Name = "ViewPDF"
-        Me.ViewPDF.OcxState = CType(resources.GetObject("ViewPDF.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.ViewPDF.Size = New System.Drawing.Size(978, 642)
-        Me.ViewPDF.TabIndex = 12
-        '
         'StatusStrip1
         '
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 652)
@@ -317,13 +310,22 @@ Partial Class NewReceipt
         '
         Me.ClassesTableAdapter.ClearBeforeFill = True
         '
+        'ViewPDF
+        '
+        Me.ViewPDF.Enabled = True
+        Me.ViewPDF.Location = New System.Drawing.Point(214, 128)
+        Me.ViewPDF.Name = "ViewPDF"
+        Me.ViewPDF.OcxState = CType(resources.GetObject("ViewPDF.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.ViewPDF.Size = New System.Drawing.Size(730, 521)
+        Me.ViewPDF.TabIndex = 14
+        '
         'NewReceipt
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(956, 674)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ViewPDF)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "NewReceipt"
@@ -363,7 +365,7 @@ Partial Class NewReceipt
     Friend WithEvents txtAIW As TextBox
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
-    Friend WithEvents ViewPDF As AxAcroPDFLib.AxAcroPDF
+    'Friend WithEvents ViewPDF As AcroPDFLib.AcroPDF
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents ClassesBindingSource As BindingSource
     Friend WithEvents btnSearch As Button
@@ -372,4 +374,5 @@ Partial Class NewReceipt
     Public WithEvents ClassesTableAdapter As prajwal_school_appDataSetTableAdapters.classesTableAdapter
     Public WithEvents Prajwal_school_appDataSet As prajwal_school_appDataSet
     Public WithEvents GroupBox2 As GroupBox
+    Friend WithEvents ViewPDF As AxAcroPDFLib.AxAcroPDF
 End Class

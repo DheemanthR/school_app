@@ -1,10 +1,8 @@
-﻿Imports System.Drawing.Printing
-Imports System.IO
+﻿Imports System.IO
 Imports System.Reflection
 Imports iTextSharp.text.pdf
 Imports iTextSharp.text
 Imports MySql.Data.MySqlClient
-Imports DocumentFormat.OpenXml.Drawing
 
 Public Class NewReceipt
 
@@ -43,7 +41,16 @@ Public Class NewReceipt
                 End If
                 conn = db.connect()
                 Dim result As Integer
-                Dim Sql As String = "INSERT INTO receipt_details (STUD_ID,AMOUNT,BALANCE) VALUES('" & txtREGN.Text & "', '" & txtAmount.Text & "','" & txtBalance.Text & "')"
+                Dim supplies As Integer = 0
+                Dim totalAmount As Integer = 0
+                If particulars.Rows.Count > 0 Then
+                    supplies = 1
+                    For Each row As DataRow In particulars.Rows
+                        totalAmount += row.Item(2)
+                    Next
+                End If
+                totalAmount += Integer.Parse(txtAmount.Text)
+                Dim Sql As String = "INSERT INTO receipt_details (STUD_ID,AMOUNT,BALANCE,SUPPLIES) VALUES('" & txtREGN.Text & "', '" & totalAmount & "','" & txtBalance.Text & "','" & supplies & "')"
                 cmd = New MySqlCommand(Sql, conn)
                 result = cmd.ExecuteNonQuery()
 
@@ -63,7 +70,19 @@ Public Class NewReceipt
                 generateBill(receipt_id)
                 Sql = "UPDATE fee_details SET BILL_GEN = 1 WHERE STUD_ID = '" & txtREGN.Text & "'"
                 cmd = New MySqlCommand(Sql, conn)
-                result = cmd.ExecuteNonQuery()
+                cmd.ExecuteNonQuery()
+
+                If particulars.Rows.Count > 0 Then
+                    Sql = "INSERT INTO particulars (PARTICULARS,AMOUNT,STUD_ID,RECEIPT_ID) VALUES "
+                    For Each row As DataRow In particulars.Rows
+                        Sql += "('" & row.Item(1) & "','" & row.Item(2) & "','" & txtREGN.Text & "','" & receipt_id & "'),"
+
+                    Next
+                    Sql = Sql.TrimEnd(",")
+
+                    cmd = New MySqlCommand(Sql, conn)
+                    cmd.ExecuteNonQuery()
+                End If
 
                 If result > 0 Then
                     stsLabel.Text = "Receipt details saved successfully"
@@ -361,7 +380,7 @@ Public Class NewReceipt
 
     Public Sub generateBill(ByVal receipt_id As Integer)
 
-        Dim orderDate As String = DateTime.Now.ToString("dd/MM/yyyy")
+        Dim orderDate As String = dtReceipt.Value.ToString("dd/MM/yyyy") 'DateTime.Now.ToString("dd/MM/yyyy")
         Dim totalAmt As Integer
         Dim space As iTextSharp.text.Paragraph = New iTextSharp.text.Paragraph(vbCrLf)
         Dim doc As New iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36)
@@ -453,11 +472,15 @@ Public Class NewReceipt
         'Now adding other particulars
         If particulars.Rows.Count > 0 Then
             For Each row As DataRow In particulars.Rows
-                If Table.Rows.Count > 1 Then
-                    Cell = New PdfPCell(New Phrase((row.Item(0) + 1).ToString))
-                Else
+                'If Table.Rows Then
+                '    Cell = New PdfPCell(New Phrase((row.Item(0) + 1).ToString))
+                'Else
+                If NoPayment = True Then
                     Cell = New PdfPCell(New Phrase((row.Item(0)).ToString))
+                Else
+                    Cell = New PdfPCell(New Phrase((row.Item(0) + 1).ToString))
                 End If
+                'End If
                 Cell.HorizontalAlignment = 1
                 Table.AddCell(Cell)
                 Table.AddCell(row.Item(1).ToString)
@@ -494,6 +517,7 @@ Public Class NewReceipt
         doc.Add(space)
         doc.Add(authSig)
         doc.Close()
+        'Me.ViewPDF.LoadFile("C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\Debug\Receipt.pdf")
         ViewPDF.src = "C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\Debug\Receipt.pdf"
 
     End Sub

@@ -29,10 +29,12 @@ Partial Class Form1
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.stsDBConn = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
@@ -95,18 +97,12 @@ Partial Class Form1
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SettingsToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(908, 24)
         Me.MenuStrip1.TabIndex = 6
         Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'SettingsToolStripMenuItem
-        '
-        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(61, 20)
-        Me.SettingsToolStripMenuItem.Text = "Settings"
         '
         'HelpToolStripMenuItem
         '
@@ -121,12 +117,29 @@ Partial Class Form1
         Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
         Me.AboutToolStripMenuItem.Text = "About"
         '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsDBConn})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 460)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(908, 22)
+        Me.StatusStrip1.TabIndex = 7
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'stsDBConn
+        '
+        Me.stsDBConn.ForeColor = System.Drawing.Color.Red
+        Me.stsDBConn.Name = "stsDBConn"
+        Me.stsDBConn.Size = New System.Drawing.Size(133, 17)
+        Me.stsDBConn.Text = "Database: Disconnected"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(908, 482)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Button6)
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button4)
@@ -139,6 +152,8 @@ Partial Class Form1
         Me.Text = "Tham's School Management System"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -151,7 +166,8 @@ Partial Class Form1
     Friend WithEvents Button5 As Button
     Friend WithEvents Button6 As Button
     Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents stsDBConn As ToolStripStatusLabel
 End Class

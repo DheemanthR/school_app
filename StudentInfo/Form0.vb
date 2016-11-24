@@ -1,4 +1,5 @@
 ﻿Imports System.Text.RegularExpressions
+Imports System.Windows.Forms
 Imports MySql.Data.MySqlClient
 
 Public Class Form0
@@ -45,6 +46,7 @@ Public Class Form0
                     If resultMain > 0 Then
                         If MsgBox("Student Data Updated Successfully!") = DialogResult.OK Then
                             changes = False
+                            stsMessage.Text = "Data Saved"
                             Me.Close()
                         End If
                     Else
@@ -104,8 +106,8 @@ Public Class Form0
                         MsgBox("Student Data Saved Successfully! " & vbCrLf & vbCrLf & "REGN = " + REGN.ToString)
                         btnPrevPay.Enabled = True
                         btnFeeDetails.Enabled = True
-
                         Reset_Form()
+                        stsMessage.Text = "Data Saved"
                     Else
                         MsgBox("Student Not Saved. An Error occured!")
                     End If
@@ -128,7 +130,6 @@ Public Class Form0
 
             Try
                 populateStudentDetails(txtStudentID.Text)
-
             Catch ex As Exception
                 MsgBox("Student data could not be retrieved. An Error Occured.")
             Finally
@@ -150,16 +151,23 @@ Public Class Form0
     End Sub
 
     Private Sub Reset_Form()
-        txtStudentID.Text = ""
-        txtFirstName.Text = ""
-        txtLastName.Text = ""
-        dtDOB.Text = ""
-        cmbClass.SelectedIndex = 0
-        txtSection.Text = ""
-        studFound = False
-        dataChanged = False
-        listSupplies.Items.Clear()
-        init(0)
+        Try
+            txtStudentID.Text = ""
+            txtFirstName.Text = ""
+            txtLastName.Text = ""
+            dtDOB.Text = ""
+            Me.ClassesTableAdapter.Fill(Me.Prajwal_school_appDataSet.classes)
+            cmbClass.SelectedIndex = 0
+            txtSection.Text = ""
+            studFound = False
+            dataChanged = False
+            listSupplies.Items.Clear()
+            init(0)
+            changes = False
+            stsMessage.Text = "Form Reset Successfully"
+        Catch ex As Exception
+            MsgBox("An error occured while resetting the form. Please try again")
+        End Try
     End Sub
 
     Private Function validate_Form() As Boolean
@@ -244,7 +252,7 @@ Public Class Form0
 
         End If
 
-            Return result
+        Return result
 
     End Function
 
@@ -290,7 +298,21 @@ Public Class Form0
     End Sub
 
     Private Sub btnNewStudent_Click(sender As Object, e As EventArgs) Handles btnNewStudent.Click
-        init(1)
+
+        If changes = False Then
+            Reset_Form()
+            init(1)
+            stsMessage.Text = "New Student Mode: Active"
+        Else
+            If MessageBox.Show("Unsaved data will be lost. Save Changes?", "Warning", MessageBoxButtons.YesNo) = DialogResult.No Then
+
+            Else
+                btnSave.PerformClick()
+                Reset_Form()
+                init(1)
+                stsMessage.Text = "New Student Mode: Active"
+            End If
+        End If
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.DoubleClick
@@ -318,17 +340,26 @@ Public Class Form0
 
     Private Sub btnFeeDetails_Click(sender As Object, e As EventArgs) Handles btnFeeDetails.Click
 
-        If Not cmbClass.SelectedIndex = 0 Then
-            Dim frm As New StudentInfo.FeeDetailsvb
-            frm.Owner = Me
-            frm.lblPresFees.Text = Me.lblFees.Text
-            frm.lblStudName.Text = Me.txtFirstName.Text + " " + Me.txtLastName.Text
-            frm.lblREGN.Text = Me.txtStudentID.Text
-            frm.totalFeeReceived = Integer.Parse(lblTotalFeeReceived.Text)
-            frm.Show()
+        If txtStudentID.TextLength > 0 Then
+            If Not cmbClass.SelectedIndex = 0 Then
+                Dim frm As New StudentInfo.FeeDetailsvb
+                If Not Application.OpenForms().OfType(Of FeeDetailsvb).Any Then
+                    frm.Owner = Me
+                    frm.lblPresFees.Text = Me.lblFees.Text
+                    frm.lblStudName.Text = Me.txtFirstName.Text + " " + Me.txtLastName.Text
+                    frm.lblREGN.Text = Me.txtStudentID.Text
+                    frm.totalFeeReceived = Integer.Parse(lblTotalFeeReceived.Text)
+                    frm.Show()
+                Else
+                    frm.BringToFront()
+                End If
+            Else
+                MsgBox("Please fill out other details first")
+            End If
         Else
-            MsgBox("Please fill out other details first")
+            MsgBox("Cannot enter fee details without saving student. Please save student data before entering fee details!")
         End If
+
 
     End Sub
 
@@ -369,20 +400,25 @@ Public Class Form0
         Try
             changes = True
             Dim frm As New StudentInfo.AddSupplies
-            frm.Owner = Me
-            Dim dt As New DataTable
-            dt.Columns.Add("Item", GetType(String))
-            dt.PrimaryKey = New DataColumn() {dt.Columns("Item")}
-            Dim row As DataRow
-            For Each item As ListViewItem In listSupplies.Items
-                row = dt.NewRow
-                row("Item") = item.SubItems(0).Text
+            If Not Application.OpenForms().OfType(Of AddSupplies).Any Then
+                frm.Owner = Me
+                Dim dt As New DataTable
+                dt.Columns.Add("Item", GetType(String))
+                dt.PrimaryKey = New DataColumn() {dt.Columns("Item")}
+                Dim row As DataRow
+                For Each item As ListViewItem In listSupplies.Items
+                    row = dt.NewRow
+                    row("Item") = item.SubItems(0).Text
 
-                dt.Rows.Add(row)
+                    dt.Rows.Add(row)
 
-            Next
-            frm.populate_list(dt)
-            frm.Show()
+                Next
+                frm.populate_list(dt)
+                frm.Show()
+            Else
+                frm.BringToFront()
+            End If
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -461,28 +497,38 @@ Public Class Form0
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         Dim frm As New StudentInfo.StudentSearch
-        frm.Owner = Me
-        frm.Show()
+        If Not Application.OpenForms().OfType(Of StudentSearch).Any Then
+            frm.Owner = Me
+            frm.Show()
+        Else
+            frm.BringToFront()
+        End If
+
     End Sub
 
     Private Sub btnPrevPay_Click(sender As Object, e As EventArgs) Handles btnPrevPay.Click
 
         Try
-            conn = db.connect()
-            Dim Sql = "Select SUM(FEES_RECV) from `prajwal_school_app`.`fee_details` where STUD_ID = '" & txtStudentID.Text & "';"
-            cmd.CommandText = Sql
-            cmd.Connection = conn
-            dadapter.SelectCommand = cmd
+            Dim frm As New StudentInfo.PreviousPayments
+            If Not Application.OpenForms().OfType(Of PreviousPayments).Any Then
+                conn = db.connect()
+                Dim Sql = "Select SUM(FEES_RECV) from `prajwal_school_app`.`fee_details` where STUD_ID = '" & txtStudentID.Text & "';"
+                cmd.CommandText = Sql
+                cmd.Connection = conn
+                dadapter.SelectCommand = cmd
 
-            If IsDBNull(cmd.ExecuteScalar) Then
-                MsgBox("No Previous Payment Records Found")
+                If IsDBNull(cmd.ExecuteScalar) Then
+                    MsgBox("No Previous Payment Records Found")
+                Else
+                    frm.lblPresFees.Text = Me.lblFees.Text
+                    frm.lblStudName.Text = Me.txtFirstName.Text + " " + Me.txtLastName.Text
+                    frm.lblREGN.Text = Me.txtStudentID.Text
+                    frm.Show()
+                End If
             Else
-                Dim frm As New StudentInfo.PreviousPayments
-                frm.lblPresFees.Text = Me.lblFees.Text
-                frm.lblStudName.Text = Me.txtFirstName.Text + " " + Me.txtLastName.Text
-                frm.lblREGN.Text = Me.txtStudentID.Text
-                frm.Show()
+                frm.BringToFront()
             End If
+
         Catch ex As Exception
             MsgBox("Error loading previous payments")
         Finally
@@ -530,6 +576,7 @@ Public Class Form0
             dadapter.Fill(dt)
             If dt.Rows.Count = 0 Then
                 MsgBox("Student Data Not Found")
+                stsMessage.Text = "Student Data Not Found"
                 studFound = False
             Else
                 txtFirstName.Text = dt.Rows(0).Item("FIRST_NAME")
@@ -600,12 +647,15 @@ Public Class Form0
 
                 Catch ex As Exception
                     MsgBox("Failed to retrieve student supplies")
+                    stsMessage.Text = "Failed to retrieve student supplies"
                 End Try
                 changes = False
                 init(1)
+                stsMessage.Text = "Student Data Retrieved Successfully"
             End If
         Catch ex As Exception
             MsgBox("Error loading student details. Please Try again")
+            stsMessage.Text = "Could not retreive student details"
         Finally
             db.disconnect(conn)
         End Try

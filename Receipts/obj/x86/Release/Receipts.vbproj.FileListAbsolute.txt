@@ -1,0 +1,2 @@
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj\x86\Release\Receipts.vbprojResolveAssemblyReference.cache
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj\x86\Release\Interop.AcroPDFLib.dll
