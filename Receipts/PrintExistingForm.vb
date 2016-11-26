@@ -106,8 +106,10 @@ Public Class Print_Existing_Form
     End Sub
 
     Private Sub Print_Existing_Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
         dtReceipt.Format = DateTimePickerFormat.Custom
         dtReceipt.CustomFormat = " "
+        txtReceiptNum.Focus()
     End Sub
 
     Private Sub dtReceipt_ValueChanged(sender As Object, e As EventArgs) Handles dtReceipt.ValueChanged

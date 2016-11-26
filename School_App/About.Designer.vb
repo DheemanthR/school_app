@@ -44,9 +44,9 @@ Partial Class About
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(169, 130)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(94, 16)
+        Me.Label2.Size = New System.Drawing.Size(91, 16)
         Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Version 1.2.1.0"
+        Me.Label2.Text = "Version 1.2.11"
         '
         'Label3
         '

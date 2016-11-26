@@ -30,6 +30,7 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
         Dim db As New DBOperations.Connection
         Dim conn As New MySqlConnection
         conn = db.connect()

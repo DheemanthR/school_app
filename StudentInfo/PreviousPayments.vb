@@ -2,6 +2,7 @@
 
 Public Class PreviousPayments
     Private Sub PreviousPayments_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
         Dim db As New DBOperations.Connection
         Dim conn As New MySqlConnection
         Dim cmd As New MySqlCommand

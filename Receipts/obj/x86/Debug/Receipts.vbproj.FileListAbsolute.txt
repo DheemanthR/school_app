@@ -32,8 +32,6 @@ C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj\x86\Debug\Receipts.Resources.resources
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj\x86\Debug\Receipts.StudentSearch.resources
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj\x86\Debug\Receipts.vbproj.GenerateResource.Cache
-C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj\x86\Debug\RdlCompile.cache
-C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj\x86\Debug\RdlCompile.compiled
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj\x86\Debug\Receipts.exe.manifest
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj\x86\Debug\Receipts.application
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\Receipts\obj\x86\Debug\Receipts.exe

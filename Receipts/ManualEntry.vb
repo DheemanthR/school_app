@@ -23,6 +23,7 @@
     End Sub
 
     Private Sub ManualEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
         If ListView1.Items.Count > 0 Then
             slno = Integer.Parse(ListView1.Items(ListView1.Items.Count - 1).SubItems(0).Text) + 1
         Else

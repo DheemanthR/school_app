@@ -3,11 +3,7 @@ C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\o
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\School_App.Resources.resources
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\School_App.Settings.resources
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\School_App.vbproj.GenerateResource.Cache
-C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\School_App.exe.config
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\Resources\logo.jpg
-C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\School_App.exe
-C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\School_App.pdb
-C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\School_App.xml
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\Receipts.exe
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\StudentInfo.exe
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\MySql.Data.dll
@@ -23,6 +19,10 @@ C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\b
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\DBOperations.xml
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\itextsharp.xml
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\School_App.vbprojResolveAssemblyReference.cache
-C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\School_App.exe
-C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\School_App.xml
-C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\School_App.pdb
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\Thams School Manager.exe.config
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\Thams School Manager.exe
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\Thams School Manager.pdb
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Debug\Thams School Manager.xml
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\Thams School Manager.exe
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\Thams School Manager.xml
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\Thams School Manager.pdb

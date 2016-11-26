@@ -22,7 +22,7 @@ Public Class NewReceipt
     Public manEntry As Boolean = False
 
     Private Sub NewReceipt_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'TODO: This line of code loads data into the 'Prajwal_school_appDataSet.classes' table. You can move, or remove it, as needed.
+        Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
         Me.ClassesTableAdapter.Fill(Me.Prajwal_school_appDataSet.classes)
         particulars.Columns.Add("Sl", GetType(Integer))
         particulars.Columns.Add("Particulars", GetType(String))
@@ -68,6 +68,8 @@ Public Class NewReceipt
 
                 datardr.Close()
                 generateBill(receipt_id)
+                GroupBox2.Enabled = False
+                GroupBox1.Enabled = False
                 Sql = "UPDATE fee_details SET BILL_GEN = 1 WHERE STUD_ID = '" & txtREGN.Text & "'"
                 cmd = New MySqlCommand(Sql, conn)
                 cmd.ExecuteNonQuery()
@@ -384,7 +386,11 @@ Public Class NewReceipt
         Dim totalAmt As Integer
         Dim space As iTextSharp.text.Paragraph = New iTextSharp.text.Paragraph(vbCrLf)
         Dim doc As New iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36)
-        Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(doc, New FileStream("Receipt.pdf", FileMode.Create))
+        Dim dir As String = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents") & "\Thams School Management System\"
+        If Not Directory.Exists(dir) Then
+            Directory.CreateDirectory(dir)
+        End If
+        Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(doc, New FileStream(dir & "Receipt.pdf", FileMode.Create))
         doc.Open()
         Try
             _assembly = Assembly.GetExecutingAssembly()
@@ -517,8 +523,9 @@ Public Class NewReceipt
         doc.Add(space)
         doc.Add(authSig)
         doc.Close()
-        'Me.ViewPDF.LoadFile("C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\Debug\Receipt.pdf")
-        ViewPDF.src = "C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\Debug\Receipt.pdf"
+        'ViewPDF.LoadFile("Receipt.pdf")
+        ViewPDF.src = dir & "Receipt.pdf"
+        'ViewPDF.Show()
 
     End Sub
 End Class

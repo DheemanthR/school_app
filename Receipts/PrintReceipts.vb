@@ -10,4 +10,8 @@
         frm.Show()
         Me.Close()
     End Sub
+
+    Private Sub PrintReceipts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
+    End Sub
 End Class

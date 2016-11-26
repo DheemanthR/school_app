@@ -16,7 +16,7 @@ Public Class Form0
     Dim supplyNoREGN As Boolean
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'TODO: This line of code loads data into the 'Prajwal_school_appDataSet.classes' table. You can move, or remove it, as needed.
+        Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
         Me.ClassesTableAdapter.Fill(Me.Prajwal_school_appDataSet.classes)
         cmbClass.SelectedIndex = 0
         changes = False

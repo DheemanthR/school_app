@@ -3,6 +3,7 @@
 Public Class StudentSearch
 
     Private Sub StudentSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
         dtDOB.Format = DateTimePickerFormat.Custom
         dtDOB.CustomFormat = " "
         'dtDOB.Value = Date.FromOADate(0)

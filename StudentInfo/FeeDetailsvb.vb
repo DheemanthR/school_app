@@ -11,7 +11,7 @@ Public Class FeeDetailsvb
     Public totalFeeReceived As Integer
 
     Private Sub FeeDetailsvb_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'lblPresFees.Text = Form0.
+        Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

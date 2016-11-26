@@ -10,7 +10,7 @@ Public Class AddSupplies
     Dim ds As DataTable
 
     Private Sub AddSupplies_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
         frm = CType(Owner, Form0)
 
     End Sub

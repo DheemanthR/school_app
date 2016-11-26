@@ -234,7 +234,6 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report2.rdlc" />
     <EmbeddedResource Include="StudentSearch.resx">
       <DependentUpon>StudentSearch.vb</DependentUpon>
     </EmbeddedResource>
