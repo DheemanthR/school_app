@@ -14,7 +14,7 @@ Public Class Print_Existing_Form
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         Try
             ListView1.Items.Clear()
-            conn = db.connect()
+            conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             Dim param As Boolean = False
             Dim Sql As String = "Select ID, STUD_ID, AMOUNT, BALANCE, DATE, SUPPLIES From `prajwal_school_app`.`receipt_details` WHERE 1"
             If txtReceiptNum.Text.Length > 0 Then

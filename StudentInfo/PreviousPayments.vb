@@ -11,7 +11,7 @@ Public Class PreviousPayments
 
         Try
             Dim Sql = "Select * from `prajwal_school_app`.`fee_details` where STUD_ID = '" & lblREGN.Text & "';"
-            conn = db.connect()
+            conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             cmd = New MySqlCommand(Sql, conn)
             dadapter = New MySqlDataAdapter(cmd)
 

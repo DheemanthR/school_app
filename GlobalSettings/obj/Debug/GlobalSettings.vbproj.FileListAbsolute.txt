@@ -1,0 +1,16 @@
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\bin\Debug\GlobalSettings.exe.config
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\bin\Debug\GlobalSettings.exe
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\bin\Debug\GlobalSettings.pdb
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\bin\Debug\GlobalSettings.xml
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\bin\Debug\DBOperations.dll
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\bin\Debug\MySql.Data.dll
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\bin\Debug\DBOperations.pdb
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\bin\Debug\DBOperations.xml
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\Debug\GlobalSettings.vbprojResolveAssemblyReference.cache
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\Debug\GlobalSettings.Resources.resources
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\Debug\GlobalSettings.Settings.resources
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\Debug\GlobalSettings.vbproj.GenerateResource.Cache
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\Debug\GlobalSettings.exe
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\Debug\GlobalSettings.xml
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\Debug\GlobalSettings.pdb
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\Debug\GlobalSettings.Security.resources

@@ -3547,18 +3547,18 @@ Partial Public Class prajwal_school_appDataSet
                 Me(Me.tablestudent_supplies.IDColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ITEM() As String
-            Get
-                Return CType(Me(Me.tablestudent_supplies.ITEMColumn),String)
-            End Get
-            Set
-                Me(Me.tablestudent_supplies.ITEMColumn) = value
-            End Set
-        End Property
-        
+
+        '<Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+        ' Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        'Public Property ITEM() As String
+        '    Get
+        '        Return CType(Me(Me.tablestudent_supplies.ITEMColumn),String)
+        '    End Get
+        '    Set
+        '        Me(Me.tablestudent_supplies.ITEMColumn) = value
+        '    End Set
+        'End Property
+
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property PRICE() As Integer

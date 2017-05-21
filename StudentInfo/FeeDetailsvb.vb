@@ -43,7 +43,7 @@ Public Class FeeDetailsvb
         If validate_Form() Then
             Try
                 Dim result As Integer
-                conn = db.connect()
+                conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
                 Dim dt As Date
                 dt = dtFeeReceived.Value
                 Dim dta As String

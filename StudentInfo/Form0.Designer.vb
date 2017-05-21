@@ -264,9 +264,9 @@ Partial Class Form0
         Me.lblTotalFeeBalance.ForeColor = System.Drawing.Color.Red
         Me.lblTotalFeeBalance.Location = New System.Drawing.Point(149, 110)
         Me.lblTotalFeeBalance.Name = "lblTotalFeeBalance"
-        Me.lblTotalFeeBalance.Size = New System.Drawing.Size(54, 24)
+        Me.lblTotalFeeBalance.Size = New System.Drawing.Size(21, 24)
         Me.lblTotalFeeBalance.TabIndex = 29
-        Me.lblTotalFeeBalance.Text = "6000"
+        Me.lblTotalFeeBalance.Text = "0"
         '
         'lblTotalFeeReceived
         '
@@ -275,9 +275,9 @@ Partial Class Form0
         Me.lblTotalFeeReceived.ForeColor = System.Drawing.Color.Green
         Me.lblTotalFeeReceived.Location = New System.Drawing.Point(149, 71)
         Me.lblTotalFeeReceived.Name = "lblTotalFeeReceived"
-        Me.lblTotalFeeReceived.Size = New System.Drawing.Size(54, 24)
+        Me.lblTotalFeeReceived.Size = New System.Drawing.Size(21, 24)
         Me.lblTotalFeeReceived.TabIndex = 28
-        Me.lblTotalFeeReceived.Text = "6000"
+        Me.lblTotalFeeReceived.Text = "0"
         '
         'btnFeeDetails
         '
@@ -296,9 +296,9 @@ Partial Class Form0
         Me.lblFees.ForeColor = System.Drawing.Color.Black
         Me.lblFees.Location = New System.Drawing.Point(47, 30)
         Me.lblFees.Name = "lblFees"
-        Me.lblFees.Size = New System.Drawing.Size(54, 24)
+        Me.lblFees.Size = New System.Drawing.Size(21, 24)
         Me.lblFees.TabIndex = 26
-        Me.lblFees.Text = "6000"
+        Me.lblFees.Text = "0"
         '
         'Label12
         '

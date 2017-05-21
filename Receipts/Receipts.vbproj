@@ -229,7 +229,7 @@
       <DependentUpon>PrintReceipts.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
-      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
@@ -310,6 +310,10 @@
       <Project>{319cb699-be18-4c0b-8c1a-ef7acf6a8135}</Project>
       <Name>DBOperations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GlobalSettings\GlobalSettings.vbproj">
+      <Project>{de6232b5-54ab-40f1-9b71-9fa4dd672afd}</Project>
+      <Name>GlobalSettings</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -330,6 +334,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="18-128.ico" />
+    <EmbeddedResource Include="Resources\byalya.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

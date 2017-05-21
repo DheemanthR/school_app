@@ -19,7 +19,7 @@ Public Class StudentSearch
 
         Try
             ListView1.Items.Clear()
-            conn = db.connect()
+            conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             Dim param As Boolean = False
             Dim Sql As String = "Select REGN, FIRST_NAME, LAST_NAME, CLASS, SECTION, DOB, ADDRESS From `prajwal_school_app`.`student` WHERE 1"
             If txtFirstName.Text.Length > 0 Then

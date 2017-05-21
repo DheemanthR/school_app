@@ -164,20 +164,36 @@
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="My Project\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApprovalCenter\ApprovalCenter.vbproj">
+      <Project>{5a9de96a-8c05-49b7-8f19-ca2bd8e6d4c1}</Project>
+      <Name>ApprovalCenter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DBOperations\DBOperations.vbproj">
       <Project>{319cb699-be18-4c0b-8c1a-ef7acf6a8135}</Project>
       <Name>DBOperations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GlobalSettings\GlobalSettings.vbproj">
+      <Project>{de6232b5-54ab-40f1-9b71-9fa4dd672afd}</Project>
+      <Name>GlobalSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Queries\Queries.vbproj">
+      <Project>{422b6c96-f0e1-4860-8530-1749a214bc5e}</Project>
+      <Name>Queries</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Receipts\Receipts.vbproj">
       <Project>{129854c7-16f4-45b5-b592-3c7cf7f71891}</Project>
       <Name>Receipts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stocks\Stocks.vbproj">
+      <Project>{182d7f2a-5274-48da-ba20-20d3602e2d88}</Project>
+      <Name>Stocks</Name>
     </ProjectReference>
     <ProjectReference Include="..\StudentInfo\StudentInfo.vbproj">
       <Project>{0088f49e-20df-43ed-9212-48fbc4b6f400}</Project>

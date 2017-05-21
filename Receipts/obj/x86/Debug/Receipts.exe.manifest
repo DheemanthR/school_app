@@ -70,7 +70,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>85pt9EBSDXcwqQIGaq+MMLpdg0wDTUZq0cCKKDm66WA=</dsig:DigestValue>
+        <dsig:DigestValue>mtWF3ruC//ZMRmiWPhXL0yHDccM+Y0zpFLMUHvWVbxw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -82,7 +82,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>G7vBORX92qxIg321ryOO9I1lgZ/ZrjKQmEHmQ5XQeLw=</dsig:DigestValue>
+        <dsig:DigestValue>G6S5xQYBwbBRXADaJXi3ZXmlzrNGfv0+j2+UT51qzGQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -111,6 +111,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GlobalSettings.exe" size="126464">
+      <assemblyIdentity name="GlobalSettings" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>PKVNNCfgHxse097C3JzFV0W+BkC0ttQZ0o5tTqHhvUo=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.AcroPDFLib.dll" size="11776">
       <assemblyIdentity name="Interop.AcroPDFLib" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
@@ -118,7 +130,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>6KsSl8j5W7RReqw/L4OJAP4OFzLX/rg6mlYE0vApf/o=</dsig:DigestValue>
+        <dsig:DigestValue>3fX6ANsA7a0s2xq5idGtGfZhXcA8ajAsCiZIRbp4pWI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -195,14 +207,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Receipts.exe" size="667128">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Receipts.exe" size="1118200">
       <assemblyIdentity name="Receipts" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>R8FkXy176lqU9xY2szGbKM9Ytmt5b0S543W6lNJoyQc=</dsig:DigestValue>
+        <dsig:DigestValue>1pzNaFSGt8/tf9Hkh6PIheTVeE4GqSoUZB15K7nnTqE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

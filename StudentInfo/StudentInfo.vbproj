@@ -214,6 +214,10 @@
       <Project>{319cb699-be18-4c0b-8c1a-ef7acf6a8135}</Project>
       <Name>DBOperations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GlobalSettings\GlobalSettings.vbproj">
+      <Project>{de6232b5-54ab-40f1-9b71-9fa4dd672afd}</Project>
+      <Name>GlobalSettings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Receipts\Receipts.vbproj">
       <Project>{129854c7-16f4-45b5-b592-3c7cf7f71891}</Project>
       <Name>Receipts</Name>

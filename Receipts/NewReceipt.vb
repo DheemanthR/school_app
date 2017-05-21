@@ -39,7 +39,7 @@ Public Class NewReceipt
                     MsgBox("No entries to generate bill")
                     Return
                 End If
-                conn = db.connect()
+                conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
                 Dim result As Integer
                 Dim supplies As Integer = 0
                 Dim totalAmount As Integer = 0
@@ -145,7 +145,7 @@ Public Class NewReceipt
     Public Sub populateStudentDetails(ByVal ID As String)
 
         Try
-            conn = db.connect()
+            conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             Dim Sql As String = "Select FIRST_NAME, LAST_NAME, SECTION, CLASS from `prajwal_school_app`.`student` where REGN = '" & ID & "';"
             cmd = New MySqlCommand(Sql, conn)
             dadapter = New MySqlDataAdapter(cmd)
@@ -207,6 +207,7 @@ Public Class NewReceipt
             Case 7 : Return "Seven"
             Case 8 : Return "Eight"
             Case 9 : Return "Nine"
+            Case Else : Return Nothing
         End Select
     End Function
 
@@ -306,6 +307,7 @@ Public Class NewReceipt
             Case 7 : Return "Seventy"
             Case 8 : Return "Eighty"
             Case 9 : Return "Ninety"
+            Case Else : Return Nothing
         End Select
     End Function
 
@@ -320,7 +322,7 @@ Public Class NewReceipt
             Case 2 : Return "Seventeen"
             Case 2 : Return "Eighteen"
             Case 2 : Return "Nineteen"
-
+            Case Else : Return Nothing
         End Select
     End Function
 
@@ -395,7 +397,11 @@ Public Class NewReceipt
         Try
             _assembly = Assembly.GetExecutingAssembly()
 
-            TheStream = _assembly.GetManifestResourceStream("Receipts.logo.jpg")
+            If GlobalSettings.My.MySettings.Default.Branch = 1 Then
+                TheStream = _assembly.GetManifestResourceStream("Receipts.logo.jpg")
+            Else
+                TheStream = _assembly.GetManifestResourceStream("Receipts.byalya.jpg")
+            End If
 
             Dim image As New Bitmap(TheStream)
             Dim logo As iTextSharp.text.Image = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Jpeg)
@@ -408,7 +414,13 @@ Public Class NewReceipt
             school_name.Alignment = Element.ALIGN_CENTER
             Dim school_reg As iTextSharp.text.Paragraph = New iTextSharp.text.Paragraph("(Recognized by Govt. Of Karnataka)")
             school_reg.Alignment = Element.ALIGN_CENTER
-            Dim school_addr As iTextSharp.text.Paragraph = New iTextSharp.text.Paragraph("Byrenahalli, Madhugiri Road, Koratagere Taluk")
+            Dim school_addr As iTextSharp.text.Paragraph
+            If GlobalSettings.My.MySettings.Default.Branch = 1 Then
+                school_addr = New iTextSharp.text.Paragraph("Byrenahalli, Madhugiri Road, Koratagere Taluk")
+            Else
+                school_addr = New iTextSharp.text.Paragraph("Byalya, Madhugiri Taluk")
+            End If
+
             school_addr.Alignment = Element.ALIGN_CENTER
             doc.Add(school_name)
             doc.Add(school_reg)

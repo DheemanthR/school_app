@@ -4,3 +4,5 @@ C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\o
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Release\School_App.Settings.resources
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Release\School_App.vbproj.GenerateResource.Cache
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Release\School_App.exe.config
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\bin\x86\Release\Thams School Manager.exe.config
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Release\School_App.vbprojResolveAssemblyReference.cache

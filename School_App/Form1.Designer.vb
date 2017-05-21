@@ -23,16 +23,18 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnQueries = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.mnuSettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.stsDBConn = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -46,15 +48,14 @@ Partial Class Form1
         Me.Button1.Text = "Student Information"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btnQueries
         '
-        Me.Button2.Enabled = False
-        Me.Button2.Location = New System.Drawing.Point(346, 94)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(218, 143)
-        Me.Button2.TabIndex = 1
-        Me.Button2.Text = "Query Manager"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnQueries.Location = New System.Drawing.Point(346, 94)
+        Me.btnQueries.Name = "btnQueries"
+        Me.btnQueries.Size = New System.Drawing.Size(218, 143)
+        Me.btnQueries.TabIndex = 1
+        Me.btnQueries.Text = "Query Manager"
+        Me.btnQueries.UseVisualStyleBackColor = True
         '
         'Button3
         '
@@ -87,7 +88,6 @@ Partial Class Form1
         '
         'Button6
         '
-        Me.Button6.Enabled = False
         Me.Button6.Location = New System.Drawing.Point(638, 94)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(218, 143)
@@ -97,12 +97,18 @@ Partial Class Form1
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSettings, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(908, 24)
         Me.MenuStrip1.TabIndex = 6
         Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'mnuSettings
+        '
+        Me.mnuSettings.Name = "mnuSettings"
+        Me.mnuSettings.Size = New System.Drawing.Size(61, 20)
+        Me.mnuSettings.Text = "Settings"
         '
         'HelpToolStripMenuItem
         '
@@ -133,6 +139,9 @@ Partial Class Form1
         Me.stsDBConn.Size = New System.Drawing.Size(133, 17)
         Me.stsDBConn.Text = "Database: Disconnected"
         '
+        'BackgroundWorker1
+        '
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -144,7 +153,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.btnQueries)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
@@ -160,7 +169,7 @@ Partial Class Form1
     End Sub
 
     Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btnQueries As Button
     Friend WithEvents Button3 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents Button5 As Button
@@ -170,4 +179,6 @@ Partial Class Form1
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents stsDBConn As ToolStripStatusLabel
+    Friend WithEvents mnuSettings As ToolStripMenuItem
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

@@ -22,6 +22,7 @@ Public Class AddSupplies
         Dim dt As New DataTable
         dt.Columns.Add("Item", GetType(String))
         dt.Columns.Add("Price", GetType(String))
+        'dt.Columns.Add("Stock", GetType(String))
         Dim row As DataRow
         For Each item As ListViewItem In lvSupplies.Items
             row = dt.NewRow
@@ -29,6 +30,7 @@ Public Class AddSupplies
                 selected = True
                 row("Item") = item.SubItems(0).Text
                 row("Price") = item.SubItems(1).Text
+                'row("Stock") = item.SubItems(1).Text
                 dt.Rows.Add(row)
                 item.Remove()
                 'frm.listSupplies.Items.Add(item)
@@ -37,8 +39,6 @@ Public Class AddSupplies
         If selected = False Then
             MsgBox("Select at least one item to add.")
         Else
-            'Dim frm As New Form0
-            'frm = CType(Owner, Form0)
             frm.populate_listview(dt)
             Me.Close()
         End If
@@ -62,8 +62,11 @@ Public Class AddSupplies
 
     Public Sub populate_list(ByVal dt As DataTable)
         Try
-            conn = db.connect()
-            Dim Sql As String = "Select item, price From `prajwal_school_app`.`student_supplies`;"
+            conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
+            Dim Sql As String = "SELECT SS.ITEM, SS.PRICE, s1.CLOSING_STOCK
+                                 FROM student_supplies SS, stock s1 LEFT JOIN stock s2
+                                 ON (s1.ITEM_ID = s2.ITEM_ID AND s1.ID < s2.ID)
+                                 WHERE s2.ID IS NULL AND s1.ITEM_ID = SS.ID"
             cmd = New MySqlCommand(Sql, conn)
             dadapter = New MySqlDataAdapter(cmd)
 
@@ -74,6 +77,7 @@ Public Class AddSupplies
                 If Not dt.Rows.Contains(newRow.Item(0)) Then
                     Dim item As New ListViewItem(newRow.Item(0).ToString)
                     item.SubItems.Add(newRow.Item(1).ToString)
+                    item.SubItems.Add(newRow.Item(2).ToString)
                     lvSupplies.Items.Add(item)
                 End If
 

@@ -34,12 +34,12 @@ Public Class Form0
             If studFound = True Then
 
                 Try
-                    conn = db.connect()
+                    conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
                     Dim Sql As String
                     Dim dt As Date
                     dt = dtDOB.Value
                     Dim dta As String = dt.ToString("yyyy-MM-dd")
-                    Sql = "UPDATE `prajwal_school_app`.`student` SET `FIRST_NAME` = '" & txtFirstName.Text & "', `LAST_NAME` = '" & txtLastName.Text & "', `CLASS` = '" & cmbClass.SelectedIndex & "', `SECTION` = '" & txtSection.Text.ToUpper & "', `DOB` = '" & dta & "', `ADDRESS` = '" & txtAddress.Text & "' WHERE REGN = '" & txtStudentID.Text & "'"
+                    Sql = "UPDATE `student` SET `FIRST_NAME` = '" & txtFirstName.Text & "', `LAST_NAME` = '" & txtLastName.Text & "', `CLASS` = '" & cmbClass.SelectedIndex & "', `SECTION` = '" & txtSection.Text.ToUpper & "', `DOB` = '" & dta & "', `ADDRESS` = '" & txtAddress.Text & "' WHERE REGN = '" & txtStudentID.Text & "'"
                     cmd = New MySqlCommand(Sql, conn)
                     resultMain = cmd.ExecuteNonQuery
 
@@ -60,12 +60,12 @@ Public Class Form0
 
             Else
                 Try
-                    conn = db.connect()
+                    conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
                     Dim Sql As String
                     Dim REGN As Integer
                     Dim noSupplies As Boolean = True
 
-                    Sql = "Select MAX(REGN) from `prajwal_school_app`.`student`"
+                    Sql = "Select MAX(REGN) from `student`"
                     cmd = New MySqlCommand(Sql, conn)
                     dadapter.SelectCommand = cmd
 
@@ -80,14 +80,14 @@ Public Class Form0
                     dt = dtDOB.Value
                     Dim dta As String = dt.ToString("yyyy-MM-dd")
 
-                    Sql = "INSERT INTO `prajwal_school_app`.`student` (`REGN`, `FIRST_NAME`, `LAST_NAME`, `CLASS`, `SECTION`, `DOB`, `ADDRESS`) " &
+                    Sql = "INSERT INTO `student` (`REGN`, `FIRST_NAME`, `LAST_NAME`, `CLASS`, `SECTION`, `DOB`, `ADDRESS`) " &
                                     "VALUES ('" & REGN & "', '" & txtFirstName.Text & "', '" & txtLastName.Text & "', '" & cmbClass.SelectedIndex & "', '" & txtSection.Text.ToUpper & "', '" & dta & "', '" & txtAddress.Text & "');"
 
                     cmd = New MySqlCommand(Sql, conn)
                     resultMain = cmd.ExecuteNonQuery
 
                     If supplyNoREGN = True AndAlso listSupplies.Items.Count > 0 Then
-                        Sql = "INSERT INTO `prajwal_school_app`.`supply_details` (`SUPPLY`, `FEES`, `REGN`) " &
+                        Sql = "INSERT INTO `supply_details` (`SUPPLY`, `FEES`, `REGN`) " &
                                    "VALUES "
                         Sql += " ('" & listSupplies.Items(0).SubItems(0).Text & "', '" & listSupplies.Items(0).SubItems(1).Text & "', '" & txtStudentID.Text & "') "
 
@@ -372,8 +372,8 @@ Public Class Form0
 
             Else
                 lblFees.Visible = True
-                conn = db.connect()
-                Dim Sql As String = "Select * from `prajwal_school_app`.`fee_structure` where CLASS = '" & cmbClass.SelectedIndex - 1 & "';"
+                conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
+                Dim Sql As String = "Select * from `fee_structure` where CLASS = '" & cmbClass.SelectedIndex - 1 & "';"
                 cmd.CommandText = Sql
                 cmd.Connection = conn
                 dadapter.SelectCommand = cmd
@@ -438,7 +438,7 @@ Public Class Form0
         Dim Sql As String
 
         If dt.Rows.Count > 0 AndAlso txtStudentID.TextLength > 0 Then
-            conn = db.connect()
+            conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             supplyNoREGN = False
             newRow = dt.Rows(0)
             Sql = "INSERT INTO `prajwal_school_app`.`supply_details` (`SUPPLY`, `FEES`, `REGN`) " &
@@ -466,7 +466,7 @@ Public Class Form0
             changes = True
             If txtStudentID.TextLength > 0 AndAlso listSupplies.SelectedItems.Count > 0 Then
                 Dim Sql As String
-                conn = db.connect()
+                conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
                 Sql = "DELETE FROM `prajwal_school_app`.`supply_details` where "
                 Sql += " (SUPPLY = '" & listSupplies.SelectedItems(0).SubItems(0).Text & "'"
                 listSupplies.SelectedItems(0).Remove()
@@ -511,7 +511,7 @@ Public Class Form0
         Try
             Dim frm As New StudentInfo.PreviousPayments
             If Not Application.OpenForms().OfType(Of PreviousPayments).Any Then
-                conn = db.connect()
+                conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
                 Dim Sql = "Select SUM(FEES_RECV) from `prajwal_school_app`.`fee_details` where STUD_ID = '" & txtStudentID.Text & "';"
                 cmd.CommandText = Sql
                 cmd.Connection = conn
@@ -538,7 +538,7 @@ Public Class Form0
     End Sub
 
     Public Sub UpdatePaymentDetails()
-        conn = db.connect()
+        conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
         Dim Sql As String
         Sql = "Select SUM(FEES_RECV) from `prajwal_school_app`.`fee_details` where STUD_ID = '" & txtStudentID.Text & "';"
         cmd.CommandText = Sql
@@ -568,7 +568,7 @@ Public Class Form0
     Public Sub populateStudentDetails(ByVal ID As String)
 
         Try
-            conn = db.connect()
+            conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             Dim Sql As String = "Select FIRST_NAME, LAST_NAME, DOB, SECTION, CLASS, ADDRESS from `prajwal_school_app`.`student` where REGN = '" & ID & "';"
             Dim dt As New DataTable
             cmd = New MySqlCommand(Sql, conn)
@@ -589,7 +589,7 @@ Public Class Form0
             End If
 
             If studFound = True Then
-                conn = db.connect()
+                conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
                 Sql = "Select * from `prajwal_school_app`.`fee_structure` where CLASS = '" & cmbClass.SelectedIndex - 1 & "';"
                 cmd.CommandText = Sql
                 cmd.Connection = conn
@@ -604,7 +604,7 @@ Public Class Form0
                 End If
                 datardr.Close()
 
-                conn = db.connect()
+                conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
                 Sql = "Select SUM(FEES_RECV) from `prajwal_school_app`.`fee_details` where STUD_ID = '" & txtStudentID.Text & "';"
                 cmd.CommandText = Sql
                 cmd.Connection = conn
