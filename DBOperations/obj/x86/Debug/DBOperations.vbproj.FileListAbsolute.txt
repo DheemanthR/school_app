@@ -7,3 +7,4 @@ C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\obj\x86\Debug\DBOperations.dll
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\obj\x86\Debug\DBOperations.xml
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\DBOperations\obj\x86\Debug\DBOperations.pdb
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\DBOperations\obj\x86\Debug\DBOperations.vbproj.CoreCompileInputs.cache

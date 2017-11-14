@@ -21,7 +21,7 @@ Public Class StudentSearch
             ListView1.Items.Clear()
             conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             Dim param As Boolean = False
-            Dim Sql As String = "Select REGN, FIRST_NAME, LAST_NAME, CLASS, SECTION, DOB, ADDRESS From `prajwal_school_app`.`student` WHERE 1"
+            Dim Sql As String = "Select REGN, FIRST_NAME, LAST_NAME, CLASS, SECTION, DOB, ADDRESS From student WHERE 1"
             If txtFirstName.Text.Length > 0 Then
                 param = True
                 Sql += " AND FIRST_NAME LIKE '" & txtFirstName.Text & "'"
@@ -60,7 +60,7 @@ Public Class StudentSearch
                 If ds.Rows.Count = 0 Then
                     stsLabel.Text = "No results matching the search criteria"
                 Else
-                    Sql = "Select ID, CLASS From `prajwal_school_app`.`classes` "
+                    Sql = "Select ID, CLASS From classes "
                     Dim dr() As System.Data.DataRow
                     cl = New DataTable
                     cmd = New MySqlCommand(Sql, conn)

@@ -13,7 +13,7 @@ Public Class Connection
         If database = 0 Then
             DatabaseName = "thams_byalya"
             server = "www.jyloke.com"
-            userName = "prajwal"
+            userName = "prajwal_admin"
             password = "Pbp080692"
         Else
             DatabaseName = "prajwal_school_app"
@@ -24,10 +24,10 @@ Public Class Connection
 
         If Not conn Is Nothing Then
             conn.Close()
-        Else
-            conn.ConnectionString = String.Format("server={0}; user id={1}; password={2}; database={3}; pooling=false", server, userName, password, DatabaseName)
         End If
+
         Try
+            conn.ConnectionString = String.Format("server={0}; user id={1}; password={2}; database={3}; pooling=false", server, userName, password, DatabaseName)
             conn.Open()
         Catch ex As Exception
             'MsgBox(ex.Message)

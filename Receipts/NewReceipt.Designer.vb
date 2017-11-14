@@ -50,13 +50,18 @@ Partial Class NewReceipt
         Me.Button2 = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.stsLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ClassesTableAdapter = New Receipts.prajwal_school_appDataSetTableAdapters.classesTableAdapter()
         Me.ViewPDF = New AxAcroPDFLib.AxAcroPDF()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         CType(Me.ClassesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         CType(Me.ViewPDF, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -135,6 +140,7 @@ Partial Class NewReceipt
         '
         'cmbClass
         '
+        Me.cmbClass.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ClassesBindingSource, "CLASS", True))
         Me.cmbClass.DataSource = Me.ClassesBindingSource
         Me.cmbClass.DisplayMember = "CLASS"
         Me.cmbClass.FormattingEnabled = True
@@ -197,9 +203,9 @@ Partial Class NewReceipt
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(6, 27)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(46, 13)
+        Me.Label6.Size = New System.Drawing.Size(72, 13)
         Me.Label6.TabIndex = 10
-        Me.Label6.Text = "Amount:"
+        Me.Label6.Text = "Fees Amount:"
         '
         'txtBalance
         '
@@ -214,9 +220,9 @@ Partial Class NewReceipt
         Me.Label7.AutoSize = True
         Me.Label7.Location = New System.Drawing.Point(6, 90)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(49, 13)
+        Me.Label7.Size = New System.Drawing.Size(75, 13)
         Me.Label7.TabIndex = 12
-        Me.Label7.Text = "Balance:"
+        Me.Label7.Text = "Fees Balance:"
         '
         'Label8
         '
@@ -293,12 +299,18 @@ Partial Class NewReceipt
         '
         'StatusStrip1
         '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblStatus})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 652)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
         Me.StatusStrip1.Size = New System.Drawing.Size(956, 22)
         Me.StatusStrip1.TabIndex = 13
         Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'lblStatus
+        '
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(0, 17)
         '
         'stsLabel
         '
@@ -319,11 +331,25 @@ Partial Class NewReceipt
         Me.ViewPDF.Size = New System.Drawing.Size(730, 521)
         Me.ViewPDF.TabIndex = 14
         '
+        'BackgroundWorker1
+        '
+        '
+        'ProgressBar1
+        '
+        Me.ProgressBar1.Location = New System.Drawing.Point(563, 655)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(374, 18)
+        Me.ProgressBar1.TabIndex = 15
+        '
+        'BackgroundWorker2
+        '
+        '
         'NewReceipt
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(956, 674)
+        Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.ViewPDF)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.GroupBox2)
@@ -336,6 +362,8 @@ Partial Class NewReceipt
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         CType(Me.ViewPDF, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -363,7 +391,6 @@ Partial Class NewReceipt
     Friend WithEvents dtReceipt As DateTimePicker
     Friend WithEvents Label9 As Label
     Friend WithEvents txtAIW As TextBox
-    Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
     'Friend WithEvents ViewPDF As AcroPDFLib.AcroPDF
     Friend WithEvents StatusStrip1 As StatusStrip
@@ -375,4 +402,9 @@ Partial Class NewReceipt
     Public WithEvents Prajwal_school_appDataSet As prajwal_school_appDataSet
     Public WithEvents GroupBox2 As GroupBox
     Friend WithEvents ViewPDF As AxAcroPDFLib.AxAcroPDF
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ProgressBar1 As ProgressBar
+    Friend WithEvents lblStatus As ToolStripStatusLabel
+    Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
+    Public WithEvents Button1 As Button
 End Class

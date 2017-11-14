@@ -28,3 +28,6 @@ C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\StudentInfo\
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\StudentInfo\obj\x86\Debug\StudentInfo.exe
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\StudentInfo\obj\x86\Debug\StudentInfo.xml
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\StudentInfo\obj\x86\Debug\StudentInfo.pdb
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\StudentInfo\bin\x86\Debug\GlobalSettings.exe.config
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\StudentInfo\bin\x86\Debug\Receipts.exe.config
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\StudentInfo\obj\x86\Debug\StudentInfo.vbproj.CoreCompileInputs.cache

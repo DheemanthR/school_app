@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_27B2AC209D3F42668F38669BAC948E2E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_318F84AD9ECE4EE5916F02B82E3DE2B5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -165,12 +159,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B1216B266F2643BEB9900B212EC9FAD6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_B2B69E576C784552B2769B0014DB1011"
         "OwnerKey" = "8:_318F84AD9ECE4EE5916F02B82E3DE2B5"
         "MsmSig" = "8:_UNDEFINED"
@@ -227,12 +215,6 @@
         {
         "MsmKey" = "8:_EAF3AFFB3721AEBAFB7E3845FB740C45"
         "OwnerKey" = "8:_57E06373BDE45D00DC2AE3E2AB35C813"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AD8018FCDFF0A8F24E7C5FE6E9A268AF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -305,6 +287,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1D2F87567CA25E5CA7B4670344589BEE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_AD8018FCDFF0A8F24E7C5FE6E9A268AF"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -431,26 +419,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_27B2AC209D3F42668F38669BAC948E2E"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\..\\Desktop\\18-128.png"
-            "TargetName" = "8:18-128.png"
-            "Tag" = "8:"
-            "Folder" = "8:_AF4568F9B94C4ABD86CC05F7469C3EBE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_389D8E0847341AEC99F3219203148CE7"
@@ -710,26 +678,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B1216B266F2643BEB9900B212EC9FAD6"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\..\\Desktop\\18-128.ico"
-            "TargetName" = "8:18-128.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_AF4568F9B94C4ABD86CC05F7469C3EBE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B2B69E576C784552B2769B0014DB1011"
             {
             "AssemblyRegister" = "3:1"
@@ -921,15 +869,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Tham's School Management System"
-        "ProductCode" = "8:{0F2FB997-5EB3-425C-B9AB-AF830BB06086}"
-        "PackageCode" = "8:{539EDBBB-F9C4-4883-B2C4-E8FA82F3DD06}"
+        "ProductCode" = "8:{5C55A2EE-6B28-43C4-B858-F691F5248236}"
+        "PackageCode" = "8:{450162B8-1302-4C01-B53D-814E10259B58}"
         "UpgradeCode" = "8:{4AFE9439-B305-468F-A206-E5139C135FB5}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.0.00"
+        "ProductVersion" = "8:2.0.01"
         "Manufacturer" = "8:Creative App Solutions"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1042,20 +990,6 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_51FD560310AA4221AAF7D736BF8ECDC6"
-            {
-            "Name" = "8:Thams School Manager"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_318F84AD9ECE4EE5916F02B82E3DE2B5"
-            "Folder" = "8:_95D0F7AC10334C3DADBD68FC24DB6C06"
-            "WorkingFolder" = "8:_AF4568F9B94C4ABD86CC05F7469C3EBE"
-            "Icon" = "8:_B1216B266F2643BEB9900B212EC9FAD6"
-            "Feature" = "8:"
-            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7A65653E8895483E8DC38B790DFCAED4"
             {
             "Name" = "8:Thams School Manager"

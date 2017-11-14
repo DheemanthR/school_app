@@ -14,3 +14,4 @@ C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettin
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\x86\Debug\GlobalSettings.exe
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\x86\Debug\GlobalSettings.xml
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\GlobalSettings\obj\x86\Debug\GlobalSettings.pdb
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\GlobalSettings\obj\x86\Debug\GlobalSettings.vbproj.CoreCompileInputs.cache

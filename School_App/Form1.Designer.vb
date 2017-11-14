@@ -41,6 +41,7 @@ Partial Class Form1
         '
         'Button1
         '
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.Location = New System.Drawing.Point(55, 94)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(218, 143)
@@ -50,6 +51,7 @@ Partial Class Form1
         '
         'btnQueries
         '
+        Me.btnQueries.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnQueries.Location = New System.Drawing.Point(346, 94)
         Me.btnQueries.Name = "btnQueries"
         Me.btnQueries.Size = New System.Drawing.Size(218, 143)
@@ -60,6 +62,7 @@ Partial Class Form1
         'Button3
         '
         Me.Button3.Enabled = False
+        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button3.Location = New System.Drawing.Point(55, 286)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(218, 143)
@@ -70,6 +73,7 @@ Partial Class Form1
         'Button4
         '
         Me.Button4.Enabled = False
+        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button4.Location = New System.Drawing.Point(346, 286)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(218, 143)
@@ -79,6 +83,7 @@ Partial Class Form1
         '
         'Button5
         '
+        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button5.Location = New System.Drawing.Point(638, 286)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(218, 143)
@@ -88,6 +93,7 @@ Partial Class Form1
         '
         'Button6
         '
+        Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button6.Location = New System.Drawing.Point(638, 94)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(218, 143)

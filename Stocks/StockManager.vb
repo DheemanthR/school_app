@@ -8,6 +8,7 @@ Public Class StockManager
     Private Sub StockManager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
         BackgroundWorker1.RunWorkerAsync()
+        Cursor.Current = Cursors.Default
     End Sub
 
     Private Sub btnAddNewItem_Click(sender As Object, e As EventArgs) Handles btnAddNewItem.Click
@@ -19,7 +20,8 @@ Public Class StockManager
         Dim frm As New AddStock
         frm.Owner = Me
         If ListView1.SelectedIndices.Count = 1 Then
-            frm.getID(ListView1.SelectedItems.Item(0).SubItems(0).Text)
+            frm.getID(Integer.Parse(ListView1.SelectedItems.Item(0).SubItems(0).Text))
+            frm.txtItemID.Text = Integer.Parse(ListView1.SelectedItems.Item(0).SubItems(0).Text)
             frm.txtItemID.Enabled = False
             frm.txtIncomingStock.Focus()
             frm.BackgroundWorker1.RunWorkerAsync()
@@ -36,10 +38,8 @@ Public Class StockManager
             conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             Dim sql As String
             'sql = "SELECT SS.ITEM, S.OPENING_STOCK, S.CLOSING_STOCK FROM stock S, student_supplies SS WHERE S.ITEM_ID = SS.ID" ' AND S.ID IN (SELECT MAX(ID) FROM stock WHERE ITEM_ID = '101')"
-            sql = "SELECT SS.ITEM, s1.OPENING_STOCK, s1.CLOSING_STOCK
-                   FROM student_supplies SS, stock s1 LEFT JOIN stock s2
-                   ON (s1.ITEM_ID = s2.ITEM_ID AND s1.ID < s2.ID)
-                   WHERE s2.ID IS NULL AND s1.ITEM_ID = SS.ID"
+            sql = "SELECT ID, ITEM, OPENING_STOCK, CLOSING_STOCK
+                   FROM student_supplies"
             Dim dt As New DataTable
             cmd = New MySqlCommand(sql, conn)
             dadapter = New MySqlDataAdapter(cmd)
@@ -51,7 +51,7 @@ Public Class StockManager
                 ListView1.Items.Add(newRow.Item(0))
                 ListView1.Items(ListView1.Items.Count - 1).SubItems.Add(newRow.Item(1))
                 ListView1.Items(ListView1.Items.Count - 1).SubItems.Add(newRow.Item(2))
-
+                ListView1.Items(ListView1.Items.Count - 1).SubItems.Add(newRow.Item(3))
             Next
         Catch ex As Exception
             MsgBox(ex.Message)

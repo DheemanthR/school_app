@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form0
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form0
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form0))
@@ -66,11 +66,16 @@ Partial Class Form0
         Me.lblErrAddress = New System.Windows.Forms.Label()
         Me.listSupplies = New System.Windows.Forms.ListView()
         Me.Item = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Price = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.Quantity = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ClassesTableAdapter = New StudentInfo.prajwal_school_appDataSetTableAdapters.classesTableAdapter()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.stsMessage = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
+        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.lblPercentage = New System.Windows.Forms.Label()
+        Me.lblPicBoxTap = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.ClassesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Prajwal_school_appDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -286,7 +291,7 @@ Partial Class Form0
         Me.btnFeeDetails.Name = "btnFeeDetails"
         Me.btnFeeDetails.Size = New System.Drawing.Size(185, 31)
         Me.btnFeeDetails.TabIndex = 27
-        Me.btnFeeDetails.Text = "More Details"
+        Me.btnFeeDetails.Text = "Add Fees Details"
         Me.btnFeeDetails.UseVisualStyleBackColor = False
         '
         'lblFees
@@ -454,7 +459,7 @@ Partial Class Form0
         '
         'listSupplies
         '
-        Me.listSupplies.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Item, Me.Price})
+        Me.listSupplies.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Item, Me.Quantity})
         Me.listSupplies.FullRowSelect = True
         Me.listSupplies.GridLines = True
         Me.listSupplies.Location = New System.Drawing.Point(12, 382)
@@ -469,10 +474,10 @@ Partial Class Form0
         Me.Item.Text = "Item"
         Me.Item.Width = 951
         '
-        'Price
+        'Quantity
         '
-        Me.Price.Text = "Price"
-        Me.Price.Width = 163
+        Me.Quantity.Text = "Quantity"
+        Me.Quantity.Width = 163
         '
         'PictureBox1
         '
@@ -505,11 +510,51 @@ Partial Class Form0
         Me.stsMessage.Size = New System.Drawing.Size(39, 17)
         Me.stsMessage.Text = "Ready"
         '
+        'BackgroundWorker1
+        '
+        '
+        'BackgroundWorker2
+        '
+        '
+        'ProgressBar1
+        '
+        Me.ProgressBar1.Location = New System.Drawing.Point(699, 574)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(386, 22)
+        Me.ProgressBar1.TabIndex = 44
+        Me.ProgressBar1.Visible = False
+        '
+        'lblPercentage
+        '
+        Me.lblPercentage.AutoSize = True
+        Me.lblPercentage.Location = New System.Drawing.Point(1088, 579)
+        Me.lblPercentage.Name = "lblPercentage"
+        Me.lblPercentage.Size = New System.Drawing.Size(24, 13)
+        Me.lblPercentage.TabIndex = 45
+        Me.lblPercentage.Text = "0 %"
+        Me.lblPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblPercentage.Visible = False
+        '
+        'lblPicBoxTap
+        '
+        Me.lblPicBoxTap.AutoSize = True
+        Me.lblPicBoxTap.Font = New System.Drawing.Font("Monospac821 BT", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPicBoxTap.Location = New System.Drawing.Point(20, 147)
+        Me.lblPicBoxTap.MaximumSize = New System.Drawing.Size(150, 0)
+        Me.lblPicBoxTap.Name = "lblPicBoxTap"
+        Me.lblPicBoxTap.Size = New System.Drawing.Size(147, 28)
+        Me.lblPicBoxTap.TabIndex = 46
+        Me.lblPicBoxTap.Text = "Double Click to Load Image"
+        Me.lblPicBoxTap.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
         'Form0
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1145, 596)
+        Me.Controls.Add(Me.lblPicBoxTap)
+        Me.Controls.Add(Me.lblPercentage)
+        Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.listSupplies)
         Me.Controls.Add(Me.lblErrAddress)
@@ -598,11 +643,16 @@ Partial Class Form0
     Friend WithEvents lblTotalFeeReceived As Label
     Friend WithEvents listSupplies As ListView
     Friend WithEvents Item As ColumnHeader
-    Friend WithEvents Price As ColumnHeader
+    Friend WithEvents Quantity As ColumnHeader
     Friend WithEvents btnPrevPay As Button
     Friend WithEvents Prajwal_school_appDataSet As prajwal_school_appDataSet
     Friend WithEvents ClassesBindingSource As BindingSource
     Friend WithEvents ClassesTableAdapter As prajwal_school_appDataSetTableAdapters.classesTableAdapter
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents stsMessage As ToolStripStatusLabel
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ProgressBar1 As ProgressBar
+    Friend WithEvents lblPercentage As Label
+    Friend WithEvents lblPicBoxTap As Label
 End Class

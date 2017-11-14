@@ -4,6 +4,7 @@ Public Class StudentSearch
 
     Private Sub StudentSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
+        Me.ClassesTableAdapter.Fill(Me.Prajwal_school_appDataSet1.classes)
         dtDOB.Format = DateTimePickerFormat.Custom
         dtDOB.CustomFormat = " "
         'dtDOB.Value = Date.FromOADate(0)
@@ -21,7 +22,7 @@ Public Class StudentSearch
             ListView1.Items.Clear()
             conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             Dim param As Boolean = False
-            Dim Sql As String = "Select REGN, FIRST_NAME, LAST_NAME, CLASS, SECTION, DOB, ADDRESS From `prajwal_school_app`.`student` WHERE 1"
+            Dim Sql As String = "Select REGN, FIRST_NAME, LAST_NAME, CLASS, SECTION, DOB, ADDRESS From student WHERE 1"
             If txtFirstName.Text.Length > 0 Then
                 param = True
                 Sql += " AND FIRST_NAME LIKE '" & txtFirstName.Text & "'"
@@ -60,7 +61,7 @@ Public Class StudentSearch
                 If ds.Rows.Count = 0 Then
                     stsLabel.Text = "No results matching the search criteria"
                 Else
-                    Sql = "Select ID, CLASS From `prajwal_school_app`.`classes` "
+                    Sql = "Select ID, CLASS From classes "
                     Dim dr() As System.Data.DataRow
                     cl = New DataTable
                     cmd = New MySqlCommand(Sql, conn)
@@ -107,4 +108,5 @@ Public Class StudentSearch
     Private Sub dtDOB_ValueChanged(sender As Object, e As EventArgs) Handles dtDOB.ValueChanged
         dtDOB.Format = DateTimePickerFormat.Long
     End Sub
+
 End Class

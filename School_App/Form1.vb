@@ -9,6 +9,7 @@ Public Class Form1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim studForm As New StudentInfo.Form0
         If Not Application.OpenForms().OfType(Of StudentInfo.Form0).Any Then
+            Cursor.Current = Cursors.WaitCursor
             studForm.Show()
         Else
             studForm.BringToFront()
@@ -22,6 +23,7 @@ Public Class Form1
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         Dim frm As New Receipts.PrintReceipts
         If Not Application.OpenForms().OfType(Of Receipts.PrintReceipts).Any Then
+            Cursor.Current = Cursors.WaitCursor
             frm.Show()
         Else
             frm.BringToFront()
@@ -74,16 +76,19 @@ Public Class Form1
 
     Private Sub Queries_Click(sender As Object, e As EventArgs) Handles btnQueries.Click
         Dim frm As New Queries.QueryManeger
+        Cursor.Current = Cursors.WaitCursor
         frm.Show()
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         Dim frm As New Stocks.StockManager
+        Cursor.Current = Cursors.WaitCursor
         frm.Show()
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         Dim frm As New ApprovalCenter.Approvals
+        Cursor.Current = Cursors.WaitCursor
         frm.Show()
     End Sub
 End Class

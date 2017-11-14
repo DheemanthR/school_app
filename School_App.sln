@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "School_App", "School_App\School_App.vbproj", "{FFC528BD-3D81-4715-B23E-3C6DF51FECC1}"
 EndProject
@@ -11,8 +11,6 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Receipts", "Receipts\Receip
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DBOperations", "DBOperations\DBOperations.vbproj", "{319CB699-BE18-4C0B-8C1A-EF7ACF6A8135}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ThamsSetup2", "ThamsSetup2\ThamsSetup2.vdproj", "{8D83175A-823B-4608-B04F-9AEAA75C0C07}"
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GlobalSettings", "GlobalSettings\GlobalSettings.vbproj", "{DE6232B5-54AB-40F1-9B71-9FA4DD672AFD}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Queries", "Queries\Queries.vbproj", "{422B6C96-F0E1-4860-8530-1749A214BC5E}"
@@ -20,6 +18,8 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Stocks", "Stocks\Stocks.vbproj", "{182D7F2A-5274-48DA-BA20-20D3602E2D88}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ApprovalCenter", "ApprovalCenter\ApprovalCenter.vbproj", "{5A9DE96A-8C05-49B7-8F19-CA2BD8E6D4C1}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ThamsSetup2", "ThamsSetup2\ThamsSetup2.vdproj", "{A9775555-0D6A-4388-899B-ACA317FDEC09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,12 +65,6 @@ Global
 		{319CB699-BE18-4C0B-8C1A-EF7ACF6A8135}.Release|x86.ActiveCfg = Release|x86
 		{319CB699-BE18-4C0B-8C1A-EF7ACF6A8135}.Release|x86.Build.0 = Release|x86
 		{319CB699-BE18-4C0B-8C1A-EF7ACF6A8135}.Release|x86.Deploy.0 = Release|x86
-		{8D83175A-823B-4608-B04F-9AEAA75C0C07}.Debug|Any CPU.ActiveCfg = Debug
-		{8D83175A-823B-4608-B04F-9AEAA75C0C07}.Debug|x86.ActiveCfg = Debug
-		{8D83175A-823B-4608-B04F-9AEAA75C0C07}.Debug|x86.Build.0 = Debug
-		{8D83175A-823B-4608-B04F-9AEAA75C0C07}.Release|Any CPU.ActiveCfg = Release
-		{8D83175A-823B-4608-B04F-9AEAA75C0C07}.Release|x86.ActiveCfg = Release
-		{8D83175A-823B-4608-B04F-9AEAA75C0C07}.Release|x86.Build.0 = Release
 		{DE6232B5-54AB-40F1-9B71-9FA4DD672AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DE6232B5-54AB-40F1-9B71-9FA4DD672AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE6232B5-54AB-40F1-9B71-9FA4DD672AFD}.Debug|x86.ActiveCfg = Debug|x86
@@ -103,8 +97,19 @@ Global
 		{5A9DE96A-8C05-49B7-8F19-CA2BD8E6D4C1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5A9DE96A-8C05-49B7-8F19-CA2BD8E6D4C1}.Release|x86.ActiveCfg = Release|Any CPU
 		{5A9DE96A-8C05-49B7-8F19-CA2BD8E6D4C1}.Release|x86.Build.0 = Release|Any CPU
+		{A9775555-0D6A-4388-899B-ACA317FDEC09}.Debug|Any CPU.ActiveCfg = Debug
+		{A9775555-0D6A-4388-899B-ACA317FDEC09}.Debug|Any CPU.Build.0 = Debug
+		{A9775555-0D6A-4388-899B-ACA317FDEC09}.Debug|x86.ActiveCfg = Debug
+		{A9775555-0D6A-4388-899B-ACA317FDEC09}.Debug|x86.Build.0 = Debug
+		{A9775555-0D6A-4388-899B-ACA317FDEC09}.Release|Any CPU.ActiveCfg = Release
+		{A9775555-0D6A-4388-899B-ACA317FDEC09}.Release|Any CPU.Build.0 = Release
+		{A9775555-0D6A-4388-899B-ACA317FDEC09}.Release|x86.ActiveCfg = Release
+		{A9775555-0D6A-4388-899B-ACA317FDEC09}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF169262-5D8F-4FF0-B89D-FE9F4BA4FCF7}
 	EndGlobalSection
 EndGlobal

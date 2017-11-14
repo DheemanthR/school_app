@@ -1,4 +1,5 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.ComponentModel
+Imports System.Text.RegularExpressions
 Imports System.Windows.Forms
 Imports MySql.Data.MySqlClient
 
@@ -14,6 +15,9 @@ Public Class Form0
     Dim studFound As Boolean
     Dim dataChanged As Boolean
     Dim supplyNoREGN As Boolean
+    Dim picAvailable As Boolean
+    Dim strPictureFileLocation As String
+    Dim filename As String
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
@@ -22,7 +26,14 @@ Public Class Form0
         changes = False
         studFound = False
         supplyNoREGN = False
+        picAvailable = False
         init(0)
+        Cursor.Current = Cursors.Default
+        BackgroundWorker1.WorkerReportsProgress = True
+        BackgroundWorker1.WorkerSupportsCancellation = True
+        'AddHandler BackgroundWorker1.DoWork, AddressOf Me.BackgroundFileDownload
+        'AddHandler BackgroundWorker1.ProgressChanged, AddressOf Me.ProgressChanged
+        'AddHandler BackgroundWorker1.RunWorkerCompleted, AddressOf Me.JobCompleted
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnSave.Click
@@ -80,8 +91,13 @@ Public Class Form0
                     dt = dtDOB.Value
                     Dim dta As String = dt.ToString("yyyy-MM-dd")
 
-                    Sql = "INSERT INTO `student` (`REGN`, `FIRST_NAME`, `LAST_NAME`, `CLASS`, `SECTION`, `DOB`, `ADDRESS`) " &
+                    If picAvailable Then
+                        Sql = "INSERT INTO `student` (`REGN`, `FIRST_NAME`, `LAST_NAME`, `CLASS`, `SECTION`, `DOB`, `ADDRESS`, `IMAGE`) " &
+                                    "VALUES ('" & REGN & "', '" & txtFirstName.Text & "', '" & txtLastName.Text & "', '" & cmbClass.SelectedIndex & "', '" & txtSection.Text.ToUpper & "', '" & dta & "', '" & txtAddress.Text & "', '" & filename & "');"
+                    Else
+                        Sql = "INSERT INTO `student` (`REGN`, `FIRST_NAME`, `LAST_NAME`, `CLASS`, `SECTION`, `DOB`, `ADDRESS`) " &
                                     "VALUES ('" & REGN & "', '" & txtFirstName.Text & "', '" & txtLastName.Text & "', '" & cmbClass.SelectedIndex & "', '" & txtSection.Text.ToUpper & "', '" & dta & "', '" & txtAddress.Text & "');"
+                    End If
 
                     cmd = New MySqlCommand(Sql, conn)
                     resultMain = cmd.ExecuteNonQuery
@@ -98,6 +114,8 @@ Public Class Form0
                         cmd = New MySqlCommand(Sql, conn)
                         resultSupplies = cmd.ExecuteNonQuery
                         noSupplies = False
+
+                        'Sql = "INSERT INTO stock VALUES CLOSING_STOCK = CLOSING_STOCK-1 WHERE "
 
                     End If
 
@@ -156,12 +174,15 @@ Public Class Form0
             txtFirstName.Text = ""
             txtLastName.Text = ""
             dtDOB.Text = ""
+            txtAddress.Text = ""
             Me.ClassesTableAdapter.Fill(Me.Prajwal_school_appDataSet.classes)
             cmbClass.SelectedIndex = 0
             txtSection.Text = ""
             studFound = False
             dataChanged = False
             listSupplies.Items.Clear()
+            PictureBox1.Image = Nothing
+            lblPicBoxTap.Visible = True
             init(0)
             changes = False
             stsMessage.Text = "Form Reset Successfully"
@@ -189,9 +210,9 @@ Public Class Form0
                 lblErrFirstName.Visible = True
                 lblErrFirstName.Text = "Cannot be empty"
                 result = False
-            ElseIf txtFirstName.Text.Length > 0 AndAlso Not Regex.Match(txtFirstName.Text, "^[a-zA-Z]+$", RegexOptions.None).Success Then
+            ElseIf txtFirstName.Text.Length > 0 AndAlso Not Regex.Match(txtFirstName.Text, "^[a-zA-Z\s]+$", RegexOptions.None).Success Then
                 lblErrFirstName.Visible = True
-                lblErrFirstName.Text = "Only alphabets allowed"
+                lblErrFirstName.Text = "Only alphabets and spaces allowed"
                 result = False
             Else
                 lblErrFirstName.Visible = False
@@ -201,9 +222,9 @@ Public Class Form0
                 lblErrLastName.Visible = True
                 lblErrLastName.Text = "Cannot be empty"
                 result = False
-            ElseIf txtLastName.Text.Length > 0 AndAlso Not Regex.Match(txtLastName.Text, "^[a-zA-Z]+$", RegexOptions.None).Success Then
+            ElseIf txtLastName.Text.Length > 0 AndAlso Not Regex.Match(txtLastName.Text, "^[a-zA-Z.\s]+$", RegexOptions.None).Success Then
                 lblErrLastName.Visible = True
-                lblErrLastName.Text = "Only alphabets allowed"
+                lblErrLastName.Text = "Only alphabets, dots and spaces allowed"
                 result = False
             Else
                 lblErrLastName.Visible = False
@@ -276,6 +297,8 @@ Public Class Form0
             btnPrevPay.Enabled = False
             txtStudentID.Enabled = True
             newStud = False
+            PictureBox1.Enabled = False
+            lblPicBoxTap.Enabled = False
 
         Else
 
@@ -292,6 +315,8 @@ Public Class Form0
             btnFeeDetails.Enabled = True
             btnPrevPay.Enabled = True
             newStud = True
+            PictureBox1.Enabled = True
+            lblPicBoxTap.Enabled = True
 
         End If
 
@@ -315,11 +340,10 @@ Public Class Form0
         End If
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.DoubleClick
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.DoubleClick, lblPicBoxTap.DoubleClick
 
         Try
             Dim fd As OpenFileDialog = New OpenFileDialog()
-            Dim strFileName As String
 
             fd.Title = "Select An Image"
             fd.InitialDirectory = "C:\"
@@ -328,12 +352,18 @@ Public Class Form0
             fd.RestoreDirectory = True
 
             If fd.ShowDialog() = DialogResult.OK Then
-                strFileName = fd.FileName
-                PictureBox1.ImageLocation = strFileName
-                PictureBox1.Load()
+                Cursor = Cursors.WaitCursor
+                strPictureFileLocation = fd.FileName
+                PictureBox1.ImageLocation = strPictureFileLocation
+                ProgressBar1.Visible = True
+                lblPercentage.Visible = True
+                lblPicBoxTap.Visible = False
+                BackgroundWorker1.RunWorkerAsync()
+                picAvailable = True
+                Cursor = Cursors.Default
             End If
         Catch ex As Exception
-            MsgBox("Error loading image")
+            MsgBox("Error loading image. Please try only with JPG format.")
         End Try
 
     End Sub
@@ -371,9 +401,10 @@ Public Class Form0
                 lblFees.Visible = False
 
             Else
+                Cursor = Cursors.WaitCursor
                 lblFees.Visible = True
                 conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
-                Dim Sql As String = "Select * from `fee_structure` where CLASS = '" & cmbClass.SelectedIndex - 1 & "';"
+                Dim Sql As String = "Select * from `fee_structure` where CLASS = '" & cmbClass.SelectedIndex & "';"
                 cmd.CommandText = Sql
                 cmd.Connection = conn
                 dadapter.SelectCommand = cmd
@@ -391,38 +422,44 @@ Public Class Form0
             MsgBox("Error retrieving fee details for selected class. Please try again")
         Finally
             db.disconnect(conn)
+            Cursor = Cursors.Default
         End Try
 
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
 
-        Try
-            changes = True
-            Dim frm As New StudentInfo.AddSupplies
-            If Not Application.OpenForms().OfType(Of AddSupplies).Any Then
-                frm.Owner = Me
-                Dim dt As New DataTable
-                dt.Columns.Add("Item", GetType(String))
-                dt.PrimaryKey = New DataColumn() {dt.Columns("Item")}
-                Dim row As DataRow
-                For Each item As ListViewItem In listSupplies.Items
-                    row = dt.NewRow
-                    row("Item") = item.SubItems(0).Text
+        If Not studFound = True Then
+            MsgBox("Please save student data and reload student profile to add supplies.")
+        Else
 
-                    dt.Rows.Add(row)
+            Try
+                changes = True
+                Dim frm As New StudentInfo.AddSupplies
+                If Not Application.OpenForms().OfType(Of AddSupplies).Any Then
+                    frm.Owner = Me
+                    frm.REGN = txtStudentID.Text
+                    Dim dt As New DataTable
+                    dt.Columns.Add("Item", GetType(String))
+                    dt.PrimaryKey = New DataColumn() {dt.Columns("Item")}
+                    Dim row As DataRow
+                    For Each item As ListViewItem In listSupplies.Items
+                        row = dt.NewRow
+                        row("Item") = item.SubItems(0).Text
 
-                Next
-                frm.populate_list(dt)
-                frm.Show()
-            Else
-                frm.BringToFront()
-            End If
+                        dt.Rows.Add(row)
 
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+                    Next
+                    frm.populate_list(dt)
+                    frm.Show()
+                Else
+                    frm.BringToFront()
+                End If
 
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+        End If
     End Sub
 
     Public Sub populate_listview(ByVal dt As DataTable)
@@ -430,10 +467,13 @@ Public Class Form0
         'listSupplies.Items.Clear()
         supplyNoREGN = True
         Dim newRow As DataRow
-        For Each newRow In dt.Rows
-            listSupplies.Items.Add(newRow.Item(0))
-            listSupplies.Items(listSupplies.Items.Count - 1).SubItems.Add(newRow.Item(1))
-        Next
+        'For Each newRow In dt.Rows
+        '    If listSupplies.FindItemWithText(newRow(0)) = Then
+
+        '    End If
+        '    listSupplies.Items.Add(newRow.Item(0))
+        '    listSupplies.Items(listSupplies.Items.Count - 1).SubItems.Add(newRow.Item(2))
+        'Next
 
         Dim Sql As String
 
@@ -441,14 +481,14 @@ Public Class Form0
             conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             supplyNoREGN = False
             newRow = dt.Rows(0)
-            Sql = "INSERT INTO `prajwal_school_app`.`supply_details` (`SUPPLY`, `FEES`, `REGN`) " &
+            Sql = "INSERT INTO supply_details (`SUPPLY`, `QUANTITY`, `FEES`, `REGN`) " &
                        "VALUES "
-            Sql += " ('" & newRow.Item(0) & "', '" & newRow.Item(1) & "', '" & txtStudentID.Text & "') "
+            Sql += " ('" & newRow.Item(0) & "', '" & newRow.Item(2) & "', '" & newRow.Item(1) & "', '" & txtStudentID.Text & "') "
 
             If dt.Rows.Count > 1 Then
-                For i As Integer = 1 To listSupplies.Items.Count - 1
+                For i As Integer = 1 To dt.Rows.Count - 1
                     newRow = dt.Rows(i)
-                    Sql += ", ('" & newRow.Item(0) & "', '" & newRow.Item(1) & "', '" & txtStudentID.Text & "') "
+                    Sql += ", ('" & newRow.Item(0) & "', '" & newRow.Item(2) & "', '" & newRow.Item(1) & "', '" & txtStudentID.Text & "') "
                 Next
             End If
 
@@ -457,6 +497,30 @@ Public Class Form0
             db.disconnect(conn)
 
         End If
+
+        listSupplies.Items.Clear()
+
+        Sql = "Select SUPPLY, SUM(QUANTITY) from supply_details where REGN = '" & txtStudentID.Text & "' GROUP BY SUPPLY;"
+
+        Try
+            supplyNoREGN = False
+            cmd = New MySqlCommand(Sql, conn)
+            dadapter = New MySqlDataAdapter(cmd)
+            Dim ds As DataTable
+            ds = New DataTable
+            dadapter.Fill(ds)
+
+            For Each newRow In ds.Rows
+                Dim item As New ListViewItem(newRow.Item(0).ToString)
+                item.SubItems.Add(newRow.Item(1).ToString)
+                listSupplies.Items.Add(item)
+            Next
+            datardr.Close()
+
+        Catch ex As Exception
+            MsgBox("Failed to reload student supplies list. Please try resetting form and reloading student profile")
+            stsMessage.Text = "Failed to retrieve student supplies"
+        End Try
 
     End Sub
 
@@ -467,7 +531,7 @@ Public Class Form0
             If txtStudentID.TextLength > 0 AndAlso listSupplies.SelectedItems.Count > 0 Then
                 Dim Sql As String
                 conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
-                Sql = "DELETE FROM `prajwal_school_app`.`supply_details` where "
+                Sql = "DELETE FROM supply_details where "
                 Sql += " (SUPPLY = '" & listSupplies.SelectedItems(0).SubItems(0).Text & "'"
                 listSupplies.SelectedItems(0).Remove()
                 If listSupplies.SelectedItems.Count > 0 Then
@@ -512,7 +576,7 @@ Public Class Form0
             Dim frm As New StudentInfo.PreviousPayments
             If Not Application.OpenForms().OfType(Of PreviousPayments).Any Then
                 conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
-                Dim Sql = "Select SUM(FEES_RECV) from `prajwal_school_app`.`fee_details` where STUD_ID = '" & txtStudentID.Text & "';"
+                Dim Sql = "Select SUM(FEES_RECV) from fee_details where STUD_ID = '" & txtStudentID.Text & "';"
                 cmd.CommandText = Sql
                 cmd.Connection = conn
                 dadapter.SelectCommand = cmd
@@ -540,7 +604,7 @@ Public Class Form0
     Public Sub UpdatePaymentDetails()
         conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
         Dim Sql As String
-        Sql = "Select SUM(FEES_RECV) from `prajwal_school_app`.`fee_details` where STUD_ID = '" & txtStudentID.Text & "';"
+        Sql = "Select SUM(FEES_RECV) from fee_details where STUD_ID = '" & txtStudentID.Text & "';"
         cmd.CommandText = Sql
         cmd.Connection = conn
         dadapter.SelectCommand = cmd
@@ -569,7 +633,7 @@ Public Class Form0
 
         Try
             conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
-            Dim Sql As String = "Select FIRST_NAME, LAST_NAME, DOB, SECTION, CLASS, ADDRESS from `prajwal_school_app`.`student` where REGN = '" & ID & "';"
+            Dim Sql As String = "Select FIRST_NAME, LAST_NAME, DOB, SECTION, CLASS, ADDRESS, IMAGE from student where REGN = '" & ID & "';"
             Dim dt As New DataTable
             cmd = New MySqlCommand(Sql, conn)
             dadapter = New MySqlDataAdapter(cmd)
@@ -585,12 +649,13 @@ Public Class Form0
                 dtDOB.Text = dt.Rows(0).Item("DOB")
                 txtSection.Text = dt.Rows(0).Item("SECTION")
                 cmbClass.SelectedIndex = Integer.Parse(dt.Rows(0).Item("CLASS"))
+                strPictureFileLocation = dt.Rows(0).Item("IMAGE")
                 studFound = True
             End If
 
             If studFound = True Then
                 conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
-                Sql = "Select * from `prajwal_school_app`.`fee_structure` where CLASS = '" & cmbClass.SelectedIndex - 1 & "';"
+                Sql = "Select * from fee_structure where CLASS = '" & cmbClass.SelectedIndex - 1 & "';"
                 cmd.CommandText = Sql
                 cmd.Connection = conn
                 dadapter.SelectCommand = cmd
@@ -605,7 +670,7 @@ Public Class Form0
                 datardr.Close()
 
                 conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
-                Sql = "Select SUM(FEES_RECV) from `prajwal_school_app`.`fee_details` where STUD_ID = '" & txtStudentID.Text & "';"
+                Sql = "Select SUM(FEES_RECV) from fee_details where STUD_ID = '" & txtStudentID.Text & "';"
                 cmd.CommandText = Sql
                 cmd.Connection = conn
                 dadapter.SelectCommand = cmd
@@ -628,7 +693,7 @@ Public Class Form0
                 End Try
                 datardr.Close()
 
-                Sql = "Select SUPPLY, FEES from `prajwal_school_app`.`supply_details` where REGN = '" & txtStudentID.Text & "';"
+                Sql = "Select SUPPLY, SUM(QUANTITY) from supply_details where REGN = '" & txtStudentID.Text & "' GROUP BY SUPPLY;"
 
                 Try
                     supplyNoREGN = False
@@ -649,7 +714,12 @@ Public Class Form0
                     MsgBox("Failed to retrieve student supplies")
                     stsMessage.Text = "Failed to retrieve student supplies"
                 End Try
+
+                'Load image
+
+                BackgroundWorker2.RunWorkerAsync()
                 changes = False
+                lblPicBoxTap.Visible = False
                 init(1)
                 stsMessage.Text = "Student Data Retrieved Successfully"
             End If
@@ -688,5 +758,76 @@ Public Class Form0
 
     Private Sub dtDOB_ValueChanged(sender As Object, e As EventArgs) Handles dtDOB.ValueChanged
         changes = True
+    End Sub
+
+    Private Sub txtAddress_ValueChanged(sender As Object, e As EventArgs) Handles txtAddress.TextChanged
+        changes = True
+    End Sub
+
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+
+        'Uploading the picture to server via FTP
+
+        filename = DateTime.Now.ToString("yyyyMMddHHmmss")
+        Dim request As System.Net.FtpWebRequest = DirectCast(System.Net.WebRequest.Create("ftp://www.jyloke.com/" + filename + ".jpg"), System.Net.FtpWebRequest)
+        request.Credentials = New System.Net.NetworkCredential("thams@jyloke.com", "3.FF}k5r`kPw")
+        request.Method = System.Net.WebRequestMethods.Ftp.UploadFile
+        Dim strz As System.IO.Stream
+
+        Try
+            stsMessage.Text = "Uploading student image..."
+            Dim file() As Byte = System.IO.File.ReadAllBytes(strPictureFileLocation)
+            strz = request.GetRequestStream()
+            For offset As Integer = 0 To file.Length Step 1024
+                BackgroundWorker1.ReportProgress(CType(offset * ProgressBar1.Maximum / file.Length, Integer))
+                Dim chunkSize As Integer = file.Length - offset
+                If chunkSize > 1024 Then chunkSize = 1024
+                strz.Write(file, offset, chunkSize)
+            Next
+        Catch ex As Exception
+            MsgBox("Uploading student image failed. Please try again.")
+            stsMessage.Text = "Error uploading student image"
+        Finally
+            strz.Close()
+            strz.Dispose()
+        End Try
+
+    End Sub
+
+    Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
+        ProgressBar1.Value = e.ProgressPercentage
+        lblPercentage.Text = ProgressBar1.Value & " %"
+    End Sub
+
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+        ProgressBar1.Value = ProgressBar1.Maximum
+        stsMessage.Text = "Image Uploaded. Ready to save student details."
+        ProgressBar1.Visible = False
+        lblPercentage.Visible = False
+    End Sub
+
+    Private Sub BackgroundWorker2_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker2.DoWork
+        'Downloading the picture to server via FTP
+        Dim request As System.Net.FtpWebRequest = DirectCast(System.Net.WebRequest.Create("ftp://www.jyloke.com/" + strPictureFileLocation + ".jpg"), System.Net.FtpWebRequest)
+        request.Credentials = New System.Net.NetworkCredential("thams@jyloke.com", "3.FF}k5r`kPw")
+        request.Method = System.Net.WebRequestMethods.Ftp.DownloadFile
+
+        Dim response As System.Net.FtpWebResponse
+        Dim reader As System.IO.StreamReader
+        Try
+            response = request.GetResponse()
+            Dim responseStream As System.IO.Stream
+            responseStream = response.GetResponseStream()
+            reader = New System.IO.StreamReader(responseStream)
+            Dim image As Image
+            image = System.Drawing.Image.FromStream(responseStream)
+            PictureBox1.Image = image
+        Catch ex As Exception
+            MsgBox("Failed to download image. Please try again.")
+        Finally
+            reader.Close()
+            response.Close()
+        End Try
+
     End Sub
 End Class

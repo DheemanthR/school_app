@@ -3,46 +3,66 @@ Imports System.Reflection
 Imports iTextSharp.text.pdf
 Imports iTextSharp.text
 Imports MySql.Data.MySqlClient
+Imports System.ComponentModel
+Imports System.Net
 
 Public Class NewReceipt
 
     Public particulars As New DataTable
+    Public dtsupplies As New DataTable
     Dim ds As New DataTable
     Dim db As New DBOperations.Connection
     Dim conn As New MySqlConnection
     Dim cmd As New MySqlCommand
     Dim dadapter As New MySqlDataAdapter
     Dim datardr As MySqlDataReader
+    Dim receipt_id As Integer
+    Dim oldReceiptfilePath As String
+
+    Dim amount As Integer = 0
+    Dim vanAmount As Integer = 0
+    Dim suppliesAmount As Integer = 0
+    Dim suppliesItem As String
+    Dim totalFeesAmt As Integer = 0
 
     Dim _assembly As Assembly
     Dim TheStream As System.IO.Stream
     Dim _textStreamReader As StreamReader
 
-    Dim NoPayment As Boolean = False
+    Dim NoSchoolPayment As Boolean = False
+    Dim NoVanPayment As Boolean = False
+    Dim NoSupplies As Boolean = False
+
+    Dim dir As String = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents") & "\Thams School Management System\"
+
     Public manEntry As Boolean = False
 
-    Private Sub NewReceipt_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Public Sub NewReceipt_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath)
         Me.ClassesTableAdapter.Fill(Me.Prajwal_school_appDataSet.classes)
         particulars.Columns.Add("Sl", GetType(Integer))
         particulars.Columns.Add("Particulars", GetType(String))
         particulars.Columns.Add("Amount", GetType(String))
         Me.GroupBox2.Enabled = False
+        BackgroundWorker1.WorkerReportsProgress = True
+        BackgroundWorker1.WorkerSupportsCancellation = True
     End Sub
 
     Public Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+        Dim result As Integer
+        Dim supplies As Integer = 0
+        Dim totalAmount As Integer = 0
+
         If form_valid() Then
 
             Try
-                If NoPayment = True AndAlso particulars.Rows.Count = 0 Then
+                If NoSchoolPayment = True AndAlso NoVanPayment = True AndAlso particulars.Rows.Count = 0 Then
                     MsgBox("No entries to generate bill")
                     Return
                 End If
                 conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
-                Dim result As Integer
-                Dim supplies As Integer = 0
-                Dim totalAmount As Integer = 0
+
                 If particulars.Rows.Count > 0 Then
                     supplies = 1
                     For Each row As DataRow In particulars.Rows
@@ -58,7 +78,6 @@ Public Class NewReceipt
                 cmd.CommandText = Sql
                 cmd.Connection = conn
                 dadapter.SelectCommand = cmd
-                Dim receipt_id As Integer
                 datardr = cmd.ExecuteReader
                 If datardr.HasRows Then
                     datardr.Read()
@@ -70,9 +89,24 @@ Public Class NewReceipt
                 generateBill(receipt_id)
                 GroupBox2.Enabled = False
                 GroupBox1.Enabled = False
-                Sql = "UPDATE fee_details SET BILL_GEN = 1 WHERE STUD_ID = '" & txtREGN.Text & "'"
-                cmd = New MySqlCommand(Sql, conn)
-                cmd.ExecuteNonQuery()
+                If NoSchoolPayment = False AndAlso NoVanPayment = True Then
+                    Sql = "UPDATE fee_details SET BILL_GEN = 1 WHERE STUD_ID = '" & txtREGN.Text & "'"
+                    cmd = New MySqlCommand(Sql, conn)
+                    cmd.ExecuteNonQuery()
+                ElseIf NoSchoolPayment = True AndAlso NoVanPayment = False Then
+                    Sql = "UPDATE van_fee_details SET BILL_GEN = 1 WHERE STUD_ID = '" & txtREGN.Text & "'"
+                    cmd = New MySqlCommand(Sql, conn)
+                    cmd.ExecuteNonQuery()
+                Else
+                    Sql = "UPDATE fee_details SET BILL_GEN = 1 WHERE STUD_ID = '" & txtREGN.Text & "'"
+                    cmd = New MySqlCommand(Sql, conn)
+                    cmd.ExecuteNonQuery()
+
+                    Sql = "UPDATE van_fee_details SET BILL_GEN = 1 WHERE STUD_ID = '" & txtREGN.Text & "'"
+                    cmd = New MySqlCommand(Sql, conn)
+                    cmd.ExecuteNonQuery()
+                End If
+
 
                 If particulars.Rows.Count > 0 Then
                     Sql = "INSERT INTO particulars (PARTICULARS,AMOUNT,STUD_ID,RECEIPT_ID) VALUES "
@@ -84,6 +118,11 @@ Public Class NewReceipt
 
                     cmd = New MySqlCommand(Sql, conn)
                     cmd.ExecuteNonQuery()
+
+                    Sql = "UPDATE supply_details SET BILL_GEN = 1 WHERE REGN = '" & txtREGN.Text & "';"
+                    cmd = New MySqlCommand(Sql, conn)
+                    cmd.ExecuteNonQuery()
+
                 End If
 
                 If result > 0 Then
@@ -101,6 +140,86 @@ Public Class NewReceipt
         Else
             MsgBox("Please fill all fields correctly")
         End If
+
+    End Sub
+
+    Public Sub suppliesReceiptGen(ByVal REGN As String)
+
+        Dim result As Integer
+        Dim totalAmount As Integer = 0
+        Dim supplies As Integer = 0
+        txtREGN.Text = REGN
+        populateStudentDetails(REGN)
+        GroupBox1.Enabled = False
+
+        Dim lineNum As Integer = 1
+        Dim newRow As DataRow
+
+        If dtsupplies.Rows.Count > 0 Then
+            supplies = 1
+            For Each row As DataRow In dtsupplies.Rows
+                newRow = particulars.NewRow
+                newRow.Item(0) = lineNum
+                newRow.Item(1) = row.Item(0)
+                newRow.Item(2) = row.Item(1) * row.Item(2)
+                totalAmount += row.Item(1) * row.Item(2)
+                particulars.Rows.Add(newRow)
+                lineNum += 1
+            Next
+        End If
+
+        Try
+            conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
+
+            Dim Sql As String = "INSERT INTO receipt_details (STUD_ID,AMOUNT,BALANCE,SUPPLIES) VALUES('" & txtREGN.Text & "', '" & totalAmount & "','" & txtBalance.Text & "','" & supplies & "')"
+            cmd = New MySqlCommand(Sql, conn)
+            result = cmd.ExecuteNonQuery()
+
+            Sql = "SELECT MAX(ID) FROM receipt_details"
+            cmd.CommandText = Sql
+            cmd.Connection = conn
+            dadapter.SelectCommand = cmd
+            datardr = cmd.ExecuteReader
+
+            If datardr.HasRows Then
+                datardr.Read()
+                receipt_id = datardr("MAX(ID)")
+            End If
+
+            datardr.Close()
+
+
+            generateBill(receipt_id)
+            GroupBox2.Enabled = False
+            GroupBox1.Enabled = False
+
+            Sql = "UPDATE supply_details SET BILL_GEN = 1 WHERE REGN = '" & REGN & "';"
+            cmd = New MySqlCommand(Sql, conn)
+            cmd.ExecuteNonQuery()
+
+            If dtsupplies.Rows.Count > 0 Then
+                Sql = "INSERT INTO particulars (PARTICULARS,AMOUNT,STUD_ID,RECEIPT_ID) VALUES "
+                For Each row As DataRow In dtsupplies.Rows
+                    Sql += "('" & row.Item(0) & "','" & row.Item(1) & "','" & REGN & "','" & receipt_id & "'),"
+
+                Next
+                Sql = Sql.TrimEnd(",")
+
+                cmd = New MySqlCommand(Sql, conn)
+                cmd.ExecuteNonQuery()
+            End If
+
+            If result > 0 Then
+                stsLabel.Text = "Receipt details saved successfully"
+            End If
+
+
+        Catch ex As Exception
+            stsLabel.Text = "An error occured while saving receipt details to database. Please try again"
+            MsgBox(ex.Message)
+        Finally
+            db.disconnect(conn)
+        End Try
 
     End Sub
 
@@ -146,7 +265,7 @@ Public Class NewReceipt
 
         Try
             conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
-            Dim Sql As String = "Select FIRST_NAME, LAST_NAME, SECTION, CLASS from `prajwal_school_app`.`student` where REGN = '" & ID & "';"
+            Dim Sql As String = "Select FIRST_NAME, LAST_NAME, SECTION, CLASS from student where REGN = '" & ID & "';"
             cmd = New MySqlCommand(Sql, conn)
             dadapter = New MySqlDataAdapter(cmd)
 
@@ -161,11 +280,34 @@ Public Class NewReceipt
 
                 txtSection.Text = ds.Rows(0).Item("SECTION")
 
-                cmbClass.SelectedIndex = Integer.Parse(ds.Rows(0).Item("CLASS").ToString)
+                cmbClass.SelectedIndex = Integer.Parse(ds.Rows(0).Item("CLASS"))
             End If
 
             Sql = "Select * FROM fee_details where STUD_ID = '" & ID & "'AND BILL_GEN = 0 ORDER BY FEES_BAL ASC;"
-            Dim amount As Integer
+
+            cmd.CommandText = Sql
+            cmd.Connection = conn
+            dadapter.SelectCommand = cmd
+
+            Dim schoolFeeBalance As Integer = 0
+            Dim vanFeeBalance As Integer = 0
+
+            datardr = cmd.ExecuteReader
+            If datardr.HasRows Then
+                datardr.Read()
+                amount = datardr("FEES_RECV")
+                schoolFeeBalance = datardr("FEES_BAL")
+                dtReceipt.Text = datardr("DATE")
+
+            Else
+                NoSchoolPayment = True
+                MsgBox("No school fee payments pending for this student")
+            End If
+
+            datardr.Close()
+
+            Sql = "Select * FROM van_fee_details where STUD_ID = '" & ID & "'AND BILL_GEN = 0 ORDER BY FEES_BAL ASC;"
+
             cmd.CommandText = Sql
             cmd.Connection = conn
             dadapter.SelectCommand = cmd
@@ -173,22 +315,59 @@ Public Class NewReceipt
             datardr = cmd.ExecuteReader
             If datardr.HasRows Then
                 datardr.Read()
-                amount = datardr("FEES_RECV")
-                txtAmount.Text = amount
-                txtBalance.Text = datardr("FEES_BAL")
-                dtReceipt.Text = datardr("DATE")
-                If amount < 99999 Then
-                    txtAIW.Text = amount_in_words(amount)
-                Else
-                    txtAIW.Text = ""
-                    MsgBox("Cannot convert amount to words!")
-                End If
+                vanAmount = datardr("FEES_RECV")
+                vanFeeBalance = datardr("FEES_BAL")
+
             Else
-                NoPayment = True
-                MsgBox("No payments pending for this student")
+                NoVanPayment = True
+                MsgBox("No van fee payments pending for this student")
             End If
-            Me.stsLabel.Text = "Student and payment data loaded successfully"
+
+            datardr.Close()
+
+            Sql = "Select SUPPLY, SUM(FEES) AS FEES FROM supply_details where REGN = '" & ID & "'AND BILL_GEN = 0 GROUP BY SUPPLY;"
+
+            cmd = New MySqlCommand(Sql, conn)
+            dadapter = New MySqlDataAdapter(cmd)
+            Dim data As DataTable
+            data = New DataTable
+            dadapter.Fill(data)
+
+            Dim lineNum As Integer = 1
+            Dim dr As DataRow
+
+            If data.Rows.Count > 0 Then
+                For Each newRow In data.Rows
+                    dr = particulars.NewRow
+                    dr.Item(0) = lineNum
+                    dr.Item(1) = newRow.Item(0).ToString
+                    dr.Item(2) = newRow.Item(1)
+                    particulars.Rows.Add(dr)
+                    lineNum += 1
+                Next
+            Else
+                NoSupplies = True
+                MsgBox("No payments for supplies pending for this student")
+            End If
+
+            datardr.Close()
+
+            totalFeesAmt = amount + vanAmount + suppliesAmount
+            txtAmount.Text = totalFeesAmt
+            txtBalance.Text = schoolFeeBalance + vanFeeBalance
+
+            If totalFeesAmt = 0 Then
+                txtAIW.Text = "Zero"
+            ElseIf totalFeesAmt > 0 AndAlso totalFeesAmt < 99999 Then
+                txtAIW.Text = amount_in_words(totalFeesAmt)
+            Else
+                txtAIW.Text = ""
+                MsgBox("Cannot convert amount to words!")
+            End If
+
+            Me.stsLabel.Text = "Student And payment data loaded successfully"
             Me.GroupBox2.Enabled = True
+
         Catch ex As Exception
             MsgBox("Error loading Student Data")
         Finally
@@ -258,14 +437,14 @@ Public Class NewReceipt
             aiw += return_words(thousands) + " Thousand "
         ElseIf thousands = 0 And flag2 = True Then
             aiw += "Thousand "
-            Else If thousands = 0 And flag2 = false
+        ElseIf thousands = 0 And flag2 = False Then
         End If
 
         If hundreds > 0 Then
             If thousands = 0 Then
                 aiw += return_words(hundreds) + " Hundred"
             Else
-                aiw += "and " + return_words(hundreds) + " Hundred"
+                aiw += "And " + return_words(hundreds) + " Hundred"
             End If
 
         End If
@@ -274,14 +453,14 @@ Public Class NewReceipt
             If thousands = 0 AndAlso hundreds = 0 Then
                 aiw += return_tens(tens) + " "
             Else
-                aiw += " and " + return_tens(tens) + " "
+                aiw += " And " + return_tens(tens) + " "
             End If
 
         ElseIf tens = 1 Then
             If thousands = 0 AndAlso hundreds = 0 Then
                 aiw += return_tens_one(units)
             Else
-                aiw += " and " + return_tens_one(units)
+                aiw += " And " + return_tens_one(units)
             End If
             flag = True
         End If
@@ -352,11 +531,11 @@ Public Class NewReceipt
             Return False
         End If
 
-        If cmbClass.SelectedIndex = 0 Then
-            Return False
-        End If
+        'If cmbClass.SelectedIndex = 0 Then
+        '    Return False
+        'End If
 
-        If manEntry = True AndAlso NoPayment = True Then
+        If manEntry = True AndAlso NoSchoolPayment = True AndAlso NoVanPayment = True Then
 
         Else
             If txtAmount.TextLength = 0 Then
@@ -388,7 +567,6 @@ Public Class NewReceipt
         Dim totalAmt As Integer
         Dim space As iTextSharp.text.Paragraph = New iTextSharp.text.Paragraph(vbCrLf)
         Dim doc As New iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36)
-        Dim dir As String = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents") & "\Thams School Management System\"
         If Not Directory.Exists(dir) Then
             Directory.CreateDirectory(dir)
         End If
@@ -478,13 +656,40 @@ Public Class NewReceipt
 
         'Adding first row as fees by default
         If totalAmt > 0 Then
-            Cell = New PdfPCell(New Phrase("1"))
-            Cell.HorizontalAlignment = 1
-            Table.AddCell(Cell)
-            Table.AddCell("Fees")
-            Cell = New PdfPCell(New Phrase(txtAmount.Text))
-            Cell.HorizontalAlignment = 1
-            Table.AddCell(Cell)
+            If amount > 0 AndAlso vanAmount = 0 Then
+                Cell = New PdfPCell(New Phrase("1"))
+                Cell.HorizontalAlignment = 1
+                Table.AddCell(Cell)
+                Table.AddCell("School Fees")
+                Cell = New PdfPCell(New Phrase(amount.ToString))
+                Cell.HorizontalAlignment = 1
+                Table.AddCell(Cell)
+            ElseIf amount = 0 AndAlso vanAmount > 0 Then
+                Cell = New PdfPCell(New Phrase("1"))
+                Cell.HorizontalAlignment = 1
+                Table.AddCell(Cell)
+                Table.AddCell("Van Fees")
+                Cell = New PdfPCell(New Phrase(vanAmount.ToString))
+                Cell.HorizontalAlignment = 1
+                Table.AddCell(Cell)
+            Else
+                Cell = New PdfPCell(New Phrase("1"))
+                Cell.HorizontalAlignment = 1
+                Table.AddCell(Cell)
+                Table.AddCell("School Fees")
+                Cell = New PdfPCell(New Phrase(amount.ToString))
+                Cell.HorizontalAlignment = 1
+                Table.AddCell(Cell)
+
+                Cell = New PdfPCell(New Phrase("2"))
+                Cell.HorizontalAlignment = 1
+                Table.AddCell(Cell)
+                Table.AddCell("Van Fees")
+                Cell = New PdfPCell(New Phrase(vanAmount.ToString))
+                Cell.HorizontalAlignment = 1
+                Table.AddCell(Cell)
+            End If
+
         End If
 
         'Now adding other particulars
@@ -493,10 +698,12 @@ Public Class NewReceipt
                 'If Table.Rows Then
                 '    Cell = New PdfPCell(New Phrase((row.Item(0) + 1).ToString))
                 'Else
-                If NoPayment = True Then
+                If (NoSchoolPayment = True AndAlso NoVanPayment = True) Then
                     Cell = New PdfPCell(New Phrase((row.Item(0)).ToString))
-                Else
+                ElseIf (NoSchoolPayment = True AndAlso NoVanPayment = False) Or (NoSchoolPayment = False AndAlso NoVanPayment = True) Then
                     Cell = New PdfPCell(New Phrase((row.Item(0) + 1).ToString))
+                Else
+                    Cell = New PdfPCell(New Phrase((row.Item(0) + 2).ToString))
                 End If
                 'End If
                 Cell.HorizontalAlignment = 1
@@ -537,7 +744,89 @@ Public Class NewReceipt
         doc.Close()
         'ViewPDF.LoadFile("Receipt.pdf")
         ViewPDF.src = dir & "Receipt.pdf"
+        BackgroundWorker1.RunWorkerAsync()
         'ViewPDF.Show()
+
+    End Sub
+
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+        'Uploading the receipt to server via FTP
+
+        Dim url As String = "ftp://www.jyloke.com/" & receipt_id & ".pdf"
+        Dim request As System.Net.FtpWebRequest = DirectCast(System.Net.WebRequest.Create(url), System.Net.FtpWebRequest)
+        request.Credentials = New System.Net.NetworkCredential("receipts@jyloke.com", "rq4m8k]hGL<G")
+        request.Method = System.Net.WebRequestMethods.Ftp.UploadFile
+        Dim strz As System.IO.Stream
+
+        Try
+            stsLabel.Text = "Uploading receipt..."
+            Dim file() As Byte = System.IO.File.ReadAllBytes(dir & "Receipt.pdf")
+            strz = request.GetRequestStream()
+            For offset As Integer = 0 To file.Length Step 1024
+                BackgroundWorker1.ReportProgress(CType(offset * ProgressBar1.Maximum / file.Length, Integer))
+                Dim chunkSize As Integer = file.Length - offset
+                If chunkSize > 1024 Then chunkSize = 1024
+                strz.Write(file, offset, chunkSize)
+            Next
+        Catch ex As Exception
+            MsgBox("Uploading receipt failed. Please try again.")
+            stsLabel.Text = "Error uploading receipt"
+        Finally
+            strz.Close()
+            strz.Dispose()
+        End Try
+
+    End Sub
+
+    Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
+        ProgressBar1.Value = e.ProgressPercentage
+    End Sub
+
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+        ProgressBar1.Value = ProgressBar1.Maximum
+        stsLabel.Text = "Receipt Uploaded."
+        ProgressBar1.Visible = False
+    End Sub
+
+    Private Sub BackgroundWorker2_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker2.DoWork
+        'Downloading the receipt from server via FTP
+        Dim url As String = "ftp://www.jyloke.com/" & receipt_id & ".pdf"
+        Dim request As New WebClient()
+        request.Credentials = New System.Net.NetworkCredential("receipts@jyloke.com", "rq4m8k]hGL<G")
+        Dim DownloadStream As FileStream = New FileStream(dir & receipt_id & ".pdf", FileMode.Create)
+        Try
+            Dim bytes() As Byte = request.DownloadData(url)
+
+            Try
+                DownloadStream.Write(bytes, 0, bytes.Length)
+                '  Close the FileStream
+                DownloadStream.Close()
+
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+                Exit Sub
+            End Try
+
+            oldReceiptfilePath = dir & receipt_id & ".pdf"
+
+        Catch ex As Exception
+            MsgBox("Failed to download receipt. Please try again.")
+        Finally
+            DownloadStream.Close()
+        End Try
+
+    End Sub
+
+    Private Sub BackgroundWorker2_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker2.RunWorkerCompleted
+        ViewPDF.src = oldReceiptfilePath
+    End Sub
+
+    Public Sub printOldReceipt(ByVal receiptId As Integer)
+        receipt_id = receiptId
+        BackgroundWorker2.RunWorkerAsync()
+    End Sub
+
+    Private Sub cmbClass_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbClass.SelectedIndexChanged
 
     End Sub
 End Class

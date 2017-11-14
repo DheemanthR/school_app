@@ -43,26 +43,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="Microsoft.ReportViewer.Common" version="12.0.0.0" publicKeyToken="89845DCD8080CC91" language="neutral" processorArchitecture="msil" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="Microsoft.ReportViewer.DataVisualization" version="12.0.0.0" publicKeyToken="89845DCD8080CC91" language="neutral" processorArchitecture="msil" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="Microsoft.ReportViewer.ProcessingObjectModel" version="12.0.0.0" publicKeyToken="89845DCD8080CC91" language="neutral" processorArchitecture="msil" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="Microsoft.SqlServer.Types" version="12.0.0.0" publicKeyToken="89845DCD8080CC91" language="neutral" processorArchitecture="msil" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AxInterop.AcroPDFLib.dll" size="8192">
       <assemblyIdentity name="AxInterop.AcroPDFLib" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -70,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mtWF3ruC//ZMRmiWPhXL0yHDccM+Y0zpFLMUHvWVbxw=</dsig:DigestValue>
+        <dsig:DigestValue>c7W0LAEr/elc8fVrxFw48rbdPktHmV0zlydgHfsVcWk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -82,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>G6S5xQYBwbBRXADaJXi3ZXmlzrNGfv0+j2+UT51qzGQ=</dsig:DigestValue>
+        <dsig:DigestValue>gH3tfFuV9grvL3OTmIbmaxDwOLH5v/wj/bhSPrmMJ6Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -118,7 +98,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>PKVNNCfgHxse097C3JzFV0W+BkC0ttQZ0o5tTqHhvUo=</dsig:DigestValue>
+        <dsig:DigestValue>pi5SRSKx2e4Z4aL57iAyiQfz49OdTZiYaP7hYDv5YCY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -130,7 +110,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>3fX6ANsA7a0s2xq5idGtGfZhXcA8ajAsCiZIRbp4pWI=</dsig:DigestValue>
+        <dsig:DigestValue>2m9ij7F1t+780vSZj6d4Z6C3jsjIZA62M+qmvIn1Lew=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -207,14 +187,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Receipts.exe" size="1118200">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Receipts.exe" size="1125880">
       <assemblyIdentity name="Receipts" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1pzNaFSGt8/tf9Hkh6PIheTVeE4GqSoUZB15K7nnTqE=</dsig:DigestValue>
+        <dsig:DigestValue>y45qrF1u5pKWcNETK6htLImx1BbBrlv+EuuvH7R4u/8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -231,14 +211,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="stdole.dll" size="25592">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="stdole.dll" size="32408">
       <assemblyIdentity name="stdole" version="7.0.3300.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>DG4zG2u9jMOAdyCuCXpcffo+5xygP6Lur84EHklpCu8=</dsig:DigestValue>
+        <dsig:DigestValue>0cErcGI7as7U6vtDf98HAVxO02wcHMBl7xI4Ow6Bk08=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

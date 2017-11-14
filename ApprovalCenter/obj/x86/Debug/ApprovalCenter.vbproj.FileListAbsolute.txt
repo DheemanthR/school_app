@@ -8,3 +8,5 @@ C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\ApprovalCent
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\ApprovalCenter\obj\x86\Debug\ApprovalCenter.exe
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\ApprovalCenter\obj\x86\Debug\ApprovalCenter.xml
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\ApprovalCenter\obj\x86\Debug\ApprovalCenter.pdb
+C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\ApprovalCenter\obj\x86\Debug\ApprovalCenter.vbprojResolveAssemblyReference.cache
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\ApprovalCenter\obj\x86\Debug\ApprovalCenter.vbproj.CoreCompileInputs.cache

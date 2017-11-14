@@ -16,7 +16,7 @@ Public Class Print_Existing_Form
             ListView1.Items.Clear()
             conn = db.connect(GlobalSettings.My.MySettings.Default.Branch)
             Dim param As Boolean = False
-            Dim Sql As String = "Select ID, STUD_ID, AMOUNT, BALANCE, DATE, SUPPLIES From `prajwal_school_app`.`receipt_details` WHERE 1"
+            Dim Sql As String = "Select ID, STUD_ID, AMOUNT, BALANCE, DATE, SUPPLIES From receipt_details WHERE 1"
             If txtReceiptNum.Text.Length > 0 Then
                 param = True
                 Sql += " AND ID = '" & txtReceiptNum.Text & "'"
@@ -66,7 +66,7 @@ Public Class Print_Existing_Form
                 If ds.Rows.Count = 0 Then
                     stsLabel.Text = "No results matching the search criteria"
                 Else
-                    Sql = "Select ID, CLASS From `prajwal_school_app`.`classes` "
+                    Sql = "Select ID, CLASS From classes "
 
                     cl = New DataTable
                     cmd = New MySqlCommand(Sql, conn)
@@ -75,7 +75,7 @@ Public Class Print_Existing_Form
                     Dim newRow As DataRow
                     For Each newRow In ds.Rows
                         ListView1.Items.Add(newRow.Item(0).ToString)
-                        Sql = "Select FIRST_NAME, LAST_NAME, CLASS From `prajwal_school_app`.`student` WHERE REGN = " & newRow.Item(1)
+                        Sql = "Select FIRST_NAME, LAST_NAME, CLASS From student WHERE REGN = " & newRow.Item(1)
                         cmd = New MySqlCommand(Sql, conn)
                         dadapter = New MySqlDataAdapter(cmd)
                         datardr = cmd.ExecuteReader
@@ -117,44 +117,72 @@ Public Class Print_Existing_Form
     End Sub
 
     Private Sub ListView1_DoubleClick(sender As Object, e As EventArgs) Handles ListView1.DoubleClick
-        Dim REGN As String
+        'Dim REGN As String
         Dim frm As New NewReceipt
-        Dim feesAmt As Integer = 0
-        Dim suppliesAmt As Integer = 0
-        frm.GroupBox1.Enabled = False
-        frm.GroupBox2.Enabled = False
-        frm.ClassesTableAdapter.Fill(frm.Prajwal_school_appDataSet.classes)
+        'Dim feesAmt As Integer = 0
+        'Dim suppliesAmt As Integer = 0
+        'frm.GroupBox1.Enabled = False
+        'frm.GroupBox2.Enabled = False
+        'frm.ClassesTableAdapter.Fill(frm.Prajwal_school_appDataSet.classes)
         dr = ds.Select("ID = '" & ListView1.SelectedItems.Item(0).Text & "'")
         If dr.Length > 0 Then
-            REGN = dr(0)("STUD_ID").ToString
-            feesAmt = Integer.Parse(dr(0)("AMOUNT").ToString)
-            frm.txtREGN.Text = REGN
-            frm.dtReceipt.Value = dr(0)("DATE")
-            frm.populateStudentDetails(REGN)
-            If dr(0)("SUPPLIES") = 1 Then
-                Dim sql As String = "SELECT ID, PARTICULARS,AMOUNT FROM particulars WHERE RECEIPT_ID = '" & dr(0)("ID") & "'"
-                cmd = New MySqlCommand(sql, conn)
-                dadapter = New MySqlDataAdapter(cmd)
-                frm.particulars = New DataTable
-                dadapter.Fill(frm.particulars)
-            End If
-            Dim i As Integer = 1
-            For Each row As DataRow In frm.particulars.Rows
-                row.Item(0) = i
-                i += 1
-                suppliesAmt += row.Item(2)
-            Next
-            feesAmt -= suppliesAmt
-            frm.txtAmount.Text = feesAmt
-            If feesAmt > 0 Then
-                For Each row As DataRow In frm.particulars.Rows
-                    row.Item(0) += 1
-                Next
-            End If
-            frm.generateBill(dr(0)("ID"))
-            frm.Show()
+            '    REGN = dr(0)("STUD_ID").ToString
+            '    feesAmt = Integer.Parse(dr(0)("AMOUNT").ToString)
+            '    frm.txtREGN.Text = REGN
+            '    frm.dtReceipt.Value = dr(0)("DATE")
+            '    frm.populateStudentDetails(REGN)
+            '    If dr(0)("SUPPLIES") = 1 Then
+            '        Dim sql As String = "SELECT ID, PARTICULARS,AMOUNT FROM particulars WHERE RECEIPT_ID = '" & dr(0)("ID") & "'"
+            '        cmd = New MySqlCommand(sql, conn)
+            '        dadapter = New MySqlDataAdapter(cmd)
+            '        frm.particulars = New DataTable
+            '        dadapter.Fill(frm.particulars)
+            '    End If
+            '    Dim i As Integer = 1
+            '    For Each row As DataRow In frm.particulars.Rows
+            '        row.Item(0) = i
+            '        i += 1
+            '        suppliesAmt += row.Item(2)
+            '    Next
+            '    feesAmt -= suppliesAmt
+            '    frm.txtAmount.Text = feesAmt
+            '    If feesAmt > 0 Then
+            '        For Each row As DataRow In frm.particulars.Rows
+            '            row.Item(0) += 1
+            '        Next
+            '    End If
+            '    frm.generateBill(dr(0)("ID"))
+            '    frm.Show()
         End If
 
+        frm.printOldReceipt(dr(0)("ID"))
+        frm.GroupBox1.Enabled = False
+        frm.Show()
         Me.Close()
     End Sub
+
+    Private Sub txtReceiptNum_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles txtReceiptNum.PreviewKeyDown
+        If e.KeyData = Keys.Tab Or e.KeyData = Keys.Enter Then
+            btnSearch.PerformClick()
+        End If
+    End Sub
+
+    Private Sub txtREGN_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles txtREGN.PreviewKeyDown
+        If e.KeyData = Keys.Tab Or e.KeyData = Keys.Enter Then
+            btnSearch.PerformClick()
+        End If
+    End Sub
+
+    Private Sub txtFirstName_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles txtFirstName.PreviewKeyDown
+        If e.KeyData = Keys.Tab Or e.KeyData = Keys.Enter Then
+            btnSearch.PerformClick()
+        End If
+    End Sub
+
+    Private Sub txtLastName_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles txtLastName.PreviewKeyDown
+        If e.KeyData = Keys.Tab Or e.KeyData = Keys.Enter Then
+            btnSearch.PerformClick()
+        End If
+    End Sub
+
 End Class

@@ -38,3 +38,10 @@ C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\o
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\Thams School Manager.exe
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\Thams School Manager.xml
 C:\Users\Dheemanth\documents\visual studio 2015\Projects\School_App\School_App\obj\x86\Debug\Thams School Manager.pdb
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\x86\Debug\ApprovalCenter.exe.config
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\x86\Debug\GlobalSettings.exe.config
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\x86\Debug\Queries.exe.config
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\x86\Debug\Receipts.exe.config
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\x86\Debug\Stocks.exe.config
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\bin\x86\Debug\StudentInfo.exe.config
+C:\Users\Dheemanth\Documents\Visual Studio 2015\Projects\School_App\School_App\obj\x86\Debug\School_App.vbproj.CoreCompileInputs.cache

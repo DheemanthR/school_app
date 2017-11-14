@@ -45,6 +45,7 @@ Public Class QueryManeger
             cmbStatus.ValueMember = "ID"
             cmbStatus.DisplayMember = "STATUS"
             populateForm()
+            Cursor.Current = Cursors.Default
         Catch ex As Exception
             MsgBox("Error loading query types. Please close this window and try reopening it.")
         Finally
@@ -75,7 +76,7 @@ Public Class QueryManeger
 
             Next
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox("Error loading queries. Please close this window and try reopening it.")
         Finally
             db.disconnect(conn)
         End Try

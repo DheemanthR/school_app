@@ -32,6 +32,7 @@ Partial Class StockManager
         Me.btnAddExisting = New System.Windows.Forms.Button()
         Me.btnAddNewItem = New System.Windows.Forms.Button()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.itemID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -46,7 +47,7 @@ Partial Class StockManager
         '
         'ListView1
         '
-        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.items, Me.openStock, Me.closeStock})
+        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.itemID, Me.items, Me.openStock, Me.closeStock})
         Me.ListView1.FullRowSelect = True
         Me.ListView1.GridLines = True
         Me.ListView1.Location = New System.Drawing.Point(13, 30)
@@ -60,7 +61,7 @@ Partial Class StockManager
         'items
         '
         Me.items.Text = "Item"
-        Me.items.Width = 349
+        Me.items.Width = 290
         '
         'openStock
         '
@@ -115,6 +116,10 @@ Partial Class StockManager
         'BackgroundWorker1
         '
         '
+        'itemID
+        '
+        Me.itemID.Text = "Item ID"
+        '
         'StockManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -141,4 +146,5 @@ Partial Class StockManager
     Friend WithEvents btnAddExisting As Button
     Friend WithEvents btnAddNewItem As Button
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Protected Friend WithEvents itemID As ColumnHeader
 End Class
